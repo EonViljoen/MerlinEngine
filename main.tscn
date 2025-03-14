@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfrhvekglh4na"]
+
+[ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://character.tscn" id="1_145mt"]
+[ext_resource type="Script" path="res://scripts/target.gd" id="2_ur8c2"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
+specular_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1sso"]
+size = Vector2(1000, 20)
+
+[node name="Main" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+position = Vector2(600, 500)
+scale = Vector2(1000, 20)
+texture = SubResource("CanvasTexture_8uv3a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+show_behind_parent = true
+position = Vector2(600, 500)
+shape = SubResource("RectangleShape2D_e1sso")
+
+[node name="Player" parent="." instance=ExtResource("1_145mt")]
+modulate = Color(0, 0.52549, 0.615686, 0.419608)
+position = Vector2(400, 464)
+
+[node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
+modulate = Color(0.882353, 0, 0.027451, 0.545098)
+position = Vector2(800, 464)
+script = ExtResource("2_ur8c2")
+isDummy = true

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://daw0hhw7a3306"]
+
+[ext_resource type="Script" path="res://scripts/magic_bolt.gd" id="1_c8d67"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xfxse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_la6ep"]
+resource_local_to_scene = true
+radius = 8.0
+
+[node name="Magic_Bolt" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_xfxse")
+gravity_scale = 0.0
+linear_velocity = Vector2(177, 0)
+script = ExtResource("1_c8d67")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -2.84217e-14)
+shape = SubResource("CircleShape2D_la6ep")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
