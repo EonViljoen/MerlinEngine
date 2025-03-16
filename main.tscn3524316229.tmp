@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfrhvekglh4na"]
+[gd_scene load_steps=6 format=3 uid="uid://bfrhvekglh4na"]
 
 [ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://character.tscn" id="1_145mt"]
+[ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://projectile.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="2_ur8c2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
@@ -27,9 +28,10 @@ shape = SubResource("RectangleShape2D_e1sso")
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
+projectileScene = ExtResource("2_h2yge")
 
 [node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
 modulate = Color(0.882353, 0, 0.027451, 0.545098)
-position = Vector2(800, 464)
+position = Vector2(439, 461)
 script = ExtResource("2_ur8c2")
 isDummy = true
