@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfrhvekglh4na"]
+[gd_scene load_steps=6 format=3 uid="uid://bfrhvekglh4na"]
 
 [ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://character.tscn" id="1_145mt"]
 [ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="2_ur8c2"]
+[ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://hud.tscn" id="3_h2yge"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
 specular_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1sso"]
-size = Vector2(1000, 20)
+size = Vector2(1152, 20)
 
 [node name="Main" type="Node2D"]
 
@@ -15,13 +16,13 @@ size = Vector2(1000, 20)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 modulate = Color(0.501961, 0.501961, 0.501961, 1)
-position = Vector2(600, 500)
-scale = Vector2(1000, 20)
+position = Vector2(576, 500)
+scale = Vector2(1151, 20.069)
 texture = SubResource("CanvasTexture_8uv3a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 show_behind_parent = true
-position = Vector2(600, 500)
+position = Vector2(576, 500)
 shape = SubResource("RectangleShape2D_e1sso")
 
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
@@ -33,3 +34,7 @@ modulate = Color(0.882353, 0, 0.027451, 0.545098)
 position = Vector2(800, 464)
 script = ExtResource("2_ur8c2")
 isDummy = true
+
+[node name="HUD" parent="." instance=ExtResource("3_h2yge")]
+
+[connection signal="enemyDamage" from="Enemy" to="HUD" method="_on_enemy_enemy_damage"]

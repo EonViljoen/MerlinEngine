@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @export var isDummy: bool
+signal enemyDamage
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,4 +14,4 @@ func _ready() -> void:
 	#pass
 
 func take_damage(amount):
-	print("Damage: ", amount)
+	enemyDamage.emit(amount)
