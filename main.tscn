@@ -10,7 +10,7 @@ specular_color = Color(0.501961, 0.501961, 0.501961, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1sso"]
 size = Vector2(1152, 20)
 
-[node name="Main" type="Node2D"]
+[node name="Battle" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -28,6 +28,10 @@ shape = SubResource("RectangleShape2D_e1sso")
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
+roundingStep = 0.01
+currentManaAmount = 100.0
+maxManaAmount = 100.0
+manaRegenRate = 0.05
 
 [node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
 modulate = Color(0.882353, 0, 0.027451, 0.545098)
@@ -37,4 +41,7 @@ isDummy = true
 
 [node name="HUD" parent="." instance=ExtResource("3_h2yge")]
 
+[connection signal="input_event" from="Player" to="Player" method="_on_input_event"]
+[connection signal="setManaHUD" from="Player" to="HUD" method="_on_player_set_mana_hud"]
+[connection signal="setMessageHUD" from="Player" to="HUD" method="_on_player_set_message_hud"]
 [connection signal="enemyDamage" from="Enemy" to="HUD" method="_on_enemy_enemy_damage"]

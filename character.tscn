@@ -23,7 +23,8 @@ show_behind_parent = true
 shape = SubResource("RectangleShape2D_p54rp")
 debug_color = Color(0.741176, 0.32549, 0.207843, 0.160784)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_timer_timeout"]
