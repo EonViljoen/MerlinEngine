@@ -38,6 +38,7 @@ modulate = Color(0.882353, 0, 0.027451, 0.545098)
 position = Vector2(800, 464)
 script = ExtResource("2_ur8c2")
 isDummy = true
+activeTarget = true
 
 [node name="HUD" parent="." instance=ExtResource("3_h2yge")]
 

@@ -45,6 +45,7 @@ func castSpell():
 		self.add_child(spell)
 		spell.global_position.x = self.global_position.x + spawnRange
 		
+		
 	else:
 		setMessageHUD.emit('Not Enough Mana')
 	

@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @export var isDummy: bool
+@export var activeTarget: bool
 
 signal enemyDamage
 
