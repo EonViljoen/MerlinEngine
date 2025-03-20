@@ -10,7 +10,7 @@ func _ready() -> void:
 	create_circle(projectileRadius)
 
 
-func _on_rigid_body_2d_body_entered(body: RigidBody2D) -> void:
+func _on_rigid_body_2d_body_entered(body: Node2D):
 	if body.is_in_group("Targets"):
 		body.take_damage(10)
 		queue_free()

@@ -19,7 +19,7 @@ func _ready():
 	#setSpawnRange()
 
 func _process(_delta):
-	if Input.is_action_just_released("LeftMouseClick"):
+	if Input.is_action_just_released("ShootProjectile"):
 		castSpell()
 	
 func setCurrentMana():
@@ -42,6 +42,7 @@ func castSpell():
 		setCurrentMana()
 		
 		var spell: Node2D = projectileScene.instantiate()
+		spell.dest = Vector2(800.0, 464.0)
 		self.add_child(spell)
 		spell.global_position.x = self.global_position.x + spawnRange
 		

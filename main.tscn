@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfrhvekglh4na"]
+[gd_scene load_steps=7 format=3 uid="uid://bfrhvekglh4na"]
 
 [ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://character.tscn" id="1_145mt"]
 [ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="2_ur8c2"]
 [ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://hud.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://tjyscgpv7npt" path="res://experimental_projectile.tscn" id="4_1bvp3"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
 specular_color = Color(0.501961, 0.501961, 0.501961, 1)
@@ -28,6 +29,7 @@ shape = SubResource("RectangleShape2D_e1sso")
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
+projectileScene = ExtResource("4_1bvp3")
 roundingStep = 0.01
 currentManaAmount = 100.0
 maxManaAmount = 100.0

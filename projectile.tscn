@@ -12,8 +12,8 @@ radius = 8.0
 
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_a85iw")
-speed = 500.0
-angle = 45.0
+speed = 650.0
+angle = 50.0
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_qxf0c")
