@@ -12,3 +12,7 @@ func _ready() -> void:
 
 func take_damage(amount):
 	enemyDamage.emit(amount)
+
+func is_target():
+	if activeTarget:
+		return self

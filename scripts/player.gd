@@ -42,9 +42,19 @@ func castSpell():
 		setCurrentMana()
 		
 		var spell: Node2D = projectileScene.instantiate()
-		spell.dest = Vector2(800.0, 464.0)
-		self.add_child(spell)
-		spell.global_position.x = self.global_position.x + spawnRange
+		var temp1 = get_tree().get_nodes_in_group("Targets").filter(
+			func(x):
+				return x.activeTarget == true 
+		)
+		
+		if temp1.size() == 0:
+			return
+		else:
+			spell.dest = Vector2(temp1.get(0))
+			self.add_child(spell)
+			spell.global_position.x = self.global_position.x + spawnRange
+			
+		
 		
 		
 	else:
