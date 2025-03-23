@@ -12,10 +12,6 @@ func _ready() -> void:
 	_start = global_position
 	animate()
 	
-#func _physics_process(delta: float) -> void:
-	#if casCollided:
-		#linear_velocity.
-	
 
 func animate():
 	var midPoint: Vector2 = (dest + _start)/2
