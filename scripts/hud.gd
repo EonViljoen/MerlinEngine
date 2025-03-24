@@ -1,12 +1,12 @@
 extends CanvasLayer
 
+signal heatUp
+
 func show_message(message):
 	$MessageLabel.text = message
 	$MessageLabel.show()
 	$MessageTimer.start()
-	
-#func set_mana(currentManaAmount, maxManaAmount):
-	
+		
 
 func _on_message_timer_timeout():
 	$MessageLabel.hide()
@@ -24,3 +24,7 @@ func _on_player_set_mana_hud(currentManaAmount, maxManaAmount):
 
 func _on_player_set_message_hud(message) -> void:
 	show_message(message)
+
+
+func _on_heat_up_button_pressed() -> void:
+	emit_signal("heatUp")

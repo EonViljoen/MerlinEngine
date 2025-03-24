@@ -3,6 +3,8 @@ extends RigidBody2D
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 
+@onready var heatUp: float = 0.0
+
 @export var projectileScene: PackedScene
 @export var roundingStep: float
 
@@ -51,6 +53,7 @@ func castSpell():
 		else:
 			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
 			self.add_child(spell)
+			spell.get_node("RigidBody2D").damage = 10 + (heatUp * 0.5)
 			spell.global_position.x = self.global_position.x + spawnRange
 			
 		
@@ -62,3 +65,7 @@ func castSpell():
 
 func _on_timer_timeout():
 	regenMana()
+
+
+func _on_hud_heat_up() -> void:
+	heatUp += 1

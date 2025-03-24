@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var area2d: Area2D = $RigidBody2D/Area2D
 @onready var rBody: RigidBody2D = $RigidBody2D
 @onready var drop: float = 100
 @onready var baseShootSpeed: float = 10
@@ -48,7 +47,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 		
 	if body.is_in_group("Targets"):
-		body.take_damage(10)
+		body.take_damage($RigidBody2D.damage)
 		tween.kill()
 		hasCollided = true
 		

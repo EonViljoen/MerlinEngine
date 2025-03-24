@@ -1,9 +1,12 @@
 extends RigidBody2D
 
 @onready var polygon : Polygon2D = $Polygon2D
+@onready var collission: CollisionShape2D = $CollisionShape2D
 
 @export var projectileRadius : int
 @export var segments : int
+
+var damage: float
 
 func _ready() -> void:
 	create_circle(projectileRadius)

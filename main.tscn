@@ -55,7 +55,7 @@ modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
 projectileScene = SubResource("PackedScene_272bh")
 roundingStep = 0.01
-spawnRange = 5.0
+spawnRange = 50.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
 manaRegenRate = 0.05
@@ -73,3 +73,4 @@ activeTarget = true
 [connection signal="setManaHUD" from="Player" to="HUD" method="_on_player_set_mana_hud"]
 [connection signal="setMessageHUD" from="Player" to="HUD" method="_on_player_set_message_hud"]
 [connection signal="enemyDamage" from="Enemy" to="HUD" method="_on_enemy_enemy_damage"]
+[connection signal="heatUp" from="HUD" to="Player" method="_on_hud_heat_up"]
