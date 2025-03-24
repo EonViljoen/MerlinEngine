@@ -16,7 +16,6 @@ signal setMessageHUD
 
 func _ready():
 	setCurrentMana()
-	#setSpawnRange()
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):

@@ -1,14 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfrhvekglh4na"]
+[gd_scene load_steps=13 format=3 uid="uid://bfrhvekglh4na"]
 
 [ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://character.tscn" id="1_145mt"]
+[ext_resource type="Script" uid="uid://0udwwnexsch3" path="res://scripts/projectile_physics.gd" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="2_ur8c2"]
+[ext_resource type="Script" uid="uid://6ftcvlqdwksk" path="res://scripts/projectile.gd" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://hud.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://ddhpq8nhita2a" path="res://scripts/projectile_animation.gd" id="4_5vw27"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
 specular_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1sso"]
 size = Vector2(1152, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qxf0c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgwo2"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7mycd"]
+resource_local_to_scene = true
+
+[sub_resource type="PackedScene" id="PackedScene_272bh"]
+resource_local_to_scene = true
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(4, 0, 19, 18, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Projectile", "script", "speed", "angle", "Node2D", "RigidBody2D", "physics_material_override", "can_sleep", "projectileRadius", "segments", "CollisionShape2D", "shape", "Polygon2D", "color", "projectileScaleFactor", "Area2D", "position", "debug_color", "_on_area_2d_body_entered", "body_entered"),
+"node_count": 6,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 5, 5, -1, 5, 6, 3, 7, 4, 1, 5, 8, 6, 9, 7, 0, 1, 0, 10, 10, -1, 1, 11, 8, 0, 1, 0, 12, 12, -1, 3, 13, 9, 1, 10, 14, 11, 0, 1, 0, 15, 15, -1, 0, 0, 4, 0, 10, 10, -1, 3, 16, 12, 11, 13, 17, 14, 0),
+"variants": [ExtResource("2_7mycd"), 650.0, 50.0, SubResource("PhysicsMaterial_qxf0c"), false, ExtResource("3_272bh"), 12, 6, SubResource("CircleShape2D_dgwo2"), Color(0.688392, 0.268126, 1, 1), ExtResource("4_5vw27"), 1.3, Vector2(0, -2.84217e-14), SubResource("CircleShape2D_7mycd"), Color(0.512864, 0.42195, 1, 0.42)],
+"version": 3
+}
 
 [node name="Battle" type="Node2D"]
 
@@ -28,14 +53,16 @@ shape = SubResource("RectangleShape2D_e1sso")
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
+projectileScene = SubResource("PackedScene_272bh")
 roundingStep = 0.01
+spawnRange = 5.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
 manaRegenRate = 0.05
 
 [node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
 modulate = Color(0.882353, 0, 0.027451, 0.545098)
-position = Vector2(800, 464)
+position = Vector2(982, 458)
 script = ExtResource("2_ur8c2")
 isDummy = true
 activeTarget = true

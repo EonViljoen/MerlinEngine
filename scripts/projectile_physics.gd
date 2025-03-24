@@ -1,38 +1,47 @@
 extends Node2D
 
-@export var speed: float
-@export var angle: float
-
 @onready var area2d: Area2D = $RigidBody2D/Area2D
 @onready var rBody: RigidBody2D = $RigidBody2D
+@onready var drop: float = 100
+@onready var baseShootSpeed: float = 10
+@onready var arcCount: float #Arcs to calculate and track
+@onready var absoluteArcPoints: float = 10.0 #Arcs to happen, only for tracking
+@onready var projectileGravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var angle: int = randi_range(-1, 1)
 
 var dest: Vector2
 var _start: Vector2
 var tween: Tween
 var hasCollided: bool = false
-
-
-@onready var projectileGravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+var adjustedSpeed: float
 
 func _ready() -> void:
 	rBody.freeze = true
 	_start = global_position
-	animate_Shoot()
-	
-	
-func animate_Shoot():
-	var midPoint: Vector2 = (dest + _start)/2
-	midPoint.y -= 100
-	
 	tween = get_tree().create_tween()
-	tween.tween_property(self, "global_position", midPoint, 0.5)
-	tween.tween_property(self, "global_position", dest, 0.5)
+	adjustedSpeed = baseShootSpeed * 100
 	
-#func bounce():
-	#rBody.freeze = false
-	#rBody.apply_impulse(Vector2.LEFT * 100)
+	arc_shot(dest, _start)
 
+func arc_shot(endPoint: Vector2, currentPoint: Vector2):
+	var distance: float
+	
+	# Break out case
+	if arcCount == absoluteArcPoints:
+		distance = currentPoint.distance_to(endPoint)
+		tween.tween_property(self, "global_position", endPoint, distance/adjustedSpeed)
+		return
+		
+	# Find midpoint
+	var t : float = float(arcCount/absoluteArcPoints)
+	var midPoint : Vector2 = (1 - t) * currentPoint + t * endPoint
+	
+	midPoint.y += angle * (drop * (1 - (2 * t - 1) ** 2))
+	distance = currentPoint.distance_to(midPoint)
+	arcCount += 1.0;
+	
+	tween.tween_property(self, "global_position", midPoint,  distance/adjustedSpeed)
+	arc_shot(endPoint, midPoint)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if hasCollided:
