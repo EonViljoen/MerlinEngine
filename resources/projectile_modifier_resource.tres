@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileModifierResource" load_steps=2 format=3 uid="uid://i6dqoq4qqq3b"]
+
+[ext_resource type="Script" uid="uid://ch5ymidwbge4n" path="res://scripts/resources/projectile_modifier_resource.gd" id="1_jypx1"]
+
+[resource]
+script = ExtResource("1_jypx1")
+speed = 50.0
+damage = 10.0
+cost = 10.0
+color = Color(1, 1, 1, 1)

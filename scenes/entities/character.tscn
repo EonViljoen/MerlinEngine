@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtjaix5asacrc"]
+[gd_scene load_steps=6 format=3 uid="uid://dtjaix5asacrc"]
 
 [ext_resource type="Script" uid="uid://cag0itqvkl1df" path="res://scripts/player.gd" id="1_om70c"]
-[ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://projectile.tscn" id="2_pjt0s"]
+[ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://scenes/entities/projectile.tscn" id="2_pjt0s"]
+[ext_resource type="PackedScene" uid="uid://8o1nqe7w3p21" path="res://scenes/entities/projectile_modifier_manager.tscn" id="3_rk0cf"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_xym31"]
 
@@ -26,5 +27,7 @@ debug_color = Color(0.741176, 0.32549, 0.207843, 0.160784)
 [node name="RegenTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="ProjectileModifierManager" parent="." instance=ExtResource("3_rk0cf")]
 
 [connection signal="timeout" from="RegenTimer" to="." method="_on_timer_timeout"]

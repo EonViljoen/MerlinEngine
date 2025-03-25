@@ -2,6 +2,7 @@ extends RigidBody2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var colShape: CollisionShape2D = $CollisionShape2D
+@onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
 
 @onready var heatUp: float = 0.0
 
