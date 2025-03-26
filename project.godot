@@ -15,6 +15,10 @@ run/main_scene="res://scenes/entities/main.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://scripts/global/signal_bus.gd"
+
 [input]
 
 ShootProjectile={

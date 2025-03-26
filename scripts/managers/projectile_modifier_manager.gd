@@ -1,11 +1,11 @@
 extends Node
 class_name ProjectileModifierManager
 
-@export var projectile_resource: ProjectileModifierResource
-@export var modifiers: Array[ProjectileModifier] = []  # Holds active modifiers
+@export var projectileResource: ProjectileModifierResource
+@export var activeModifiers: Array[ProjectileModifier] = []  # Holds active modifiers
 
 
-func apply_modifiers(projectile):
+func apply_modifiers(projectile: Node2D):
 	for modifier in get_children():
 		if modifier is ProjectileModifier:
 			modifier.apply_modifier(projectile)

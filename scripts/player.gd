@@ -3,21 +3,23 @@ extends RigidBody2D
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 @onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
+@onready var statManager: CharacterStatManager = $CharacterStatManager
 
 @onready var heatUp: float = 0.0
+@onready var stat: PackedScene
 
 @export var projectileScene: PackedScene
-@export var roundingStep: float
+@export var decimalRoundingStep: float
 
-@export var spawnRange : float
-@export var currentManaAmount: float
-@export var maxManaAmount: float
-@export var manaRegenRate: float
+var characterStats: CharacterStatResource
 
 signal setManaHUD
 signal setMessageHUD
 
 func _ready():
+	print(statManager)
+	characterStats = statManager.characterStatResource
+	print(characterStats)
 	setCurrentMana()
 
 func _process(_delta):
@@ -25,25 +27,28 @@ func _process(_delta):
 		castSpell()
 	
 func setCurrentMana():
-		setManaHUD.emit(currentManaAmount, maxManaAmount)
+		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
 func regenMana():
-	if currentManaAmount != maxManaAmount:
-		currentManaAmount += snapped(maxManaAmount * manaRegenRate, roundingStep)
+	if characterStats.currentManaAmount != characterStats.maxManaAmount:
+		characterStats.currentManaAmount += snapped(characterStats.maxManaAmount * characterStats.manaRegenRate, decimalRoundingStep)
 		
-		if currentManaAmount > maxManaAmount:
-			currentManaAmount = maxManaAmount
+		if characterStats.currentManaAmount > characterStats.maxManaAmount:
+			characterStats.currentManaAmount = characterStats.maxManaAmount
 		
-		setManaHUD.emit(currentManaAmount, maxManaAmount)
+		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
 
 func castSpell():
-	if currentManaAmount >= 10:
+
+	if characterStats.currentManaAmount >= 10:
 		
-		currentManaAmount -= 10 # Have to do something like using spells nodes which stores cost etc
+		characterStats.currentManaAmount -= 10 # Have to do something like using spells nodes which stores cost etc
 		setCurrentMana()
 		
 		var spell: Node2D = projectileScene.instantiate()
+		spell.baseShootSpeed = characterStats.projectileShotSpeed
+		modifierManager.apply_modifiers(spell)
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
 				return x.activeTarget == true 
@@ -51,15 +56,13 @@ func castSpell():
 		
 		if activeTarget == null:
 			return
+			
 		else:
 			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
 			self.add_child(spell)
 			spell.get_node("RigidBody2D").damage = 10 + (heatUp * 0.5)
-			spell.global_position.x = self.global_position.x + spawnRange
+			spell.global_position.x = self.global_position.x + characterStats.projectileSpawnRange
 			
-		
-		
-		
 	else:
 		setMessageHUD.emit('Not Enough Mana')
 	

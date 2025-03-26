@@ -1,6 +1,14 @@
 extends ProjectileModifier
 
-@export var damage: float = 15
+@export var damageMod: float = 15
+@export var activated: bool = false
 
-func apply_modifier(projectile):
-	print(projectile.position)
+var stack: int = 0
+
+signal updateShotDamage
+
+func apply_modifier(projectile: Node2D):
+	pass
+	#projectile.get_node() *= speedMod
+	#updateShotDamage.emit(damageMod)
+	#SignalBus.statUpdate()

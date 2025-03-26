@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterStatResource" load_steps=2 format=3 uid="uid://c3gyquhs8rnib"]
+
+[ext_resource type="Script" uid="uid://qaribx22tfwp" path="res://scripts/resources/character_stat_resource.gd" id="1_dqgqh"]
+
+[resource]
+script = ExtResource("1_dqgqh")
+projectileShotSpeed = 2.5
+projectileShotDamage = 10.0
+projectileSpawnRange = 0.0
+currentManaAmount = 100.0
+maxManaAmount = 100.0
+manaRegenRate = 0.5

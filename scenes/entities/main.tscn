@@ -54,11 +54,6 @@ shape = SubResource("RectangleShape2D_e1sso")
 modulate = Color(0, 0.52549, 0.615686, 0.419608)
 position = Vector2(400, 464)
 projectileScene = SubResource("PackedScene_xckkb")
-roundingStep = 0.01
-spawnRange = 50.0
-currentManaAmount = 100.0
-maxManaAmount = 100.0
-manaRegenRate = 0.05
 
 [node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
 modulate = Color(0.882353, 0, 0.027451, 0.545098)
