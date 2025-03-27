@@ -6,7 +6,7 @@ extends RigidBody2D
 @export var projectileRadius : int
 @export var segments : int
 
-var damage: float
+@export var damage: float
 
 func _ready() -> void:
 	create_circle(projectileRadius)

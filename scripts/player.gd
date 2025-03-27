@@ -60,7 +60,7 @@ func castSpell():
 		else:
 			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
 			self.add_child(spell)
-			spell.get_node("RigidBody2D").damage = 10 + (heatUp * 0.5)
+			spell.get_node("RigidBody2D").damage += characterStats.projectileShotDamage
 			spell.global_position.x = self.global_position.x + characterStats.projectileSpawnRange
 			
 	else:

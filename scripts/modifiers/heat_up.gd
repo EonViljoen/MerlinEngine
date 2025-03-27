@@ -3,12 +3,17 @@ extends ProjectileModifier
 @export var damageMod: float = 15
 @export var activated: bool = false
 
+@export var characterStateResource: CharacterStatResource
+
 var stack: int = 0
 
 signal updateShotDamage
 
 func apply_modifier(projectile: Node2D):
-	pass
-	#projectile.get_node() *= speedMod
+	print(characterStateResource.projectileShotDamage)
+	characterStateResource.projectileShotDamage += damageMod
+	SignalBus.statUpdate.emit(characterStateResource, "projectileShotDamage", characterStateResource.projectileShotDamage)
+	print(characterStateResource.projectileShotDamage)
+
 	#updateShotDamage.emit(damageMod)
 	#SignalBus.statUpdate()
