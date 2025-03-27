@@ -19,12 +19,13 @@ func _ready() -> void:
 		
 func _on_open_close_button_pressed() -> void:
 	isOpen = !isOpen
-	
-	if !isOpen:
-		openCloseButton.focus_mode = Control.FOCUS_CLICK
-	
+
 	var targetPositionX = openPositionX if isOpen else closePositionX
 	spellPanel.set_position(Vector2(targetPositionX, spellPanel.position.y))
 	tween = get_tree().create_tween()
 	tween.tween_property(spellPanel, "position:x", targetPositionX, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.kill()
+	
+	if !isOpen:
+		openCloseButton.release_focus()
+	

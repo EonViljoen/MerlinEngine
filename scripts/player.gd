@@ -13,11 +13,13 @@ extends RigidBody2D
 
 var characterStats: CharacterStatResource
 
+
 signal setManaHUD
 signal setMessageHUD
 
 func _ready():
 	characterStats = statManager.characterStatResource
+	#modifierManager.connect("activeModifiersUpdated", _on_projectile_modifier_manager_active_modifiers_updated)
 	setCurrentMana()
 
 func _process(_delta):
@@ -40,6 +42,8 @@ func regenMana():
 	
 
 func castSpell():
+	modifierManager.apply_modifiers()
+	#print(modifierManager.activeModifiers)
 
 	if characterStats.currentManaAmount >= 10:
 		
@@ -48,7 +52,7 @@ func castSpell():
 		
 		var spell: Node2D = projectileScene.instantiate()
 		spell.baseShootSpeed = characterStats.projectileShotSpeed
-		modifierManager.apply_modifiers(spell)
+		#modifierManager.apply_modifiers(spell)
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
 				return x.activeTarget == true 
@@ -69,3 +73,13 @@ func castSpell():
 
 func _on_timer_timeout():
 	regenMana()
+
+#func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
+	#print('yes')
+	##modifierManager.activeModifiers = updatedModifiers
+
+
+func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
+	print(updatedModifiers)
+	print('hi')
+	pass # Replace with function body.
