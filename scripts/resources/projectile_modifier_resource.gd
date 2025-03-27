@@ -1,7 +1,7 @@
 extends Resource
 class_name ProjectileModifierResource
 
-@export var speedMod: float = 00.0
+@export var speedMod: float = 0.0
 @export var damageMod: float = 00.0
 @export var costMod: float = 0.0
 @export var colorMod: Color = Color.WHITE

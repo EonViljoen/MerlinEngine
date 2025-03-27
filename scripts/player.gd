@@ -17,13 +17,13 @@ signal setManaHUD
 signal setMessageHUD
 
 func _ready():
-	print(statManager)
 	characterStats = statManager.characterStatResource
-	print(characterStats)
 	setCurrentMana()
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):
+		if get_viewport().gui_get_focus_owner():
+			return
 		castSpell()
 	
 func setCurrentMana():
@@ -69,7 +69,3 @@ func castSpell():
 
 func _on_timer_timeout():
 	regenMana()
-
-
-func _on_hud_heat_up() -> void:
-	heatUp += 1

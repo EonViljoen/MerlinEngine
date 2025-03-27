@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://qm1ea6fixo4x"]
+[gd_scene load_steps=4 format=3 uid="uid://qm1ea6fixo4x"]
 
 [ext_resource type="Script" uid="uid://b4turoacujvsl" path="res://scripts/spell_manager_panel.gd" id="1_dogtn"]
+[ext_resource type="PackedScene" uid="uid://8o1nqe7w3p21" path="res://scenes/managers/projectile_modifier_manager.tscn" id="2_2cpc6"]
+[ext_resource type="Script" uid="uid://c3joh6kqa3pcq" path="res://scripts/util/button_container_control.gd" id="2_d4g6m"]
 
 [node name="SpellManagerPanel" type="Control"]
 layout_mode = 3
@@ -19,19 +21,23 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -124.0
-offset_right = 100.0
-offset_bottom = -24.0
+offset_right = 200.0
+offset_bottom = 176.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ButtonContainer" type="Container" parent="SideSpellPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-rotation = 1.5708
+[node name="ButtonContainer" type="BoxContainer" parent="SideSpellPanel"]
+layout_mode = 1
+script = ExtResource("2_d4g6m")
 
-[node name="OpenCloseButton" type="Button" parent="SideSpellPanel/ButtonContainer"]
+[node name="OpenCloseButton" type="Button" parent="SideSpellPanel"]
 layout_mode = 2
+offset_right = 118.0
+offset_bottom = 31.0
+rotation = 1.5708
 text = "Spell Manager"
 
-[connection signal="pressed" from="SideSpellPanel/ButtonContainer/OpenCloseButton" to="." method="_on_open_close_button_pressed"]
+[node name="ProjectileModifierManager" parent="." instance=ExtResource("2_2cpc6")]
+
+[connection signal="pressedModifier" from="SideSpellPanel/ButtonContainer" to="ProjectileModifierManager" method="_on_button_container_pressed_modifier"]
+[connection signal="pressed" from="SideSpellPanel/OpenCloseButton" to="." method="_on_open_close_button_pressed"]

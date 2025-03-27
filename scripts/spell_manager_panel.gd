@@ -3,7 +3,9 @@ extends Control
 @export var slideSpeed: float = 300.0
 
 @onready var spellPanel : Panel = $SideSpellPanel
-@onready var openCloseButton : Button = $SideSpellPanel/ButtonContainer/OpenCloseButton
+@onready var openCloseButton : Button = $SideSpellPanel/OpenCloseButton
+@onready var buttonContainer: Container = $SideSpellPanel/ButtonContainer
+@onready var projectileModifierManager : ProjectileModifierManager = $ProjectileModifierManager
 
 var isOpen : bool = false
 var closePositionX : float
@@ -14,9 +16,12 @@ func _ready() -> void:
 	closePositionX = spellPanel.get_global_rect().position.x
 	openPositionX =  closePositionX - (spellPanel.get_global_rect().end.x - closePositionX)
 
-
+		
 func _on_open_close_button_pressed() -> void:
 	isOpen = !isOpen
+	
+	if !isOpen:
+		openCloseButton.focus_mode = Control.FOCUS_CLICK
 	
 	var targetPositionX = openPositionX if isOpen else closePositionX
 	spellPanel.set_position(Vector2(targetPositionX, spellPanel.position.y))

@@ -13,4 +13,4 @@ projectileResource = ExtResource("2_kyfqo")
 [node name="HeatUp" parent="." instance=ExtResource("2_xrt8l")]
 characterStateResource = ExtResource("4_kyfqo")
 
-[node name="SpeedUp" parent="." instance=ExtResource("3_kyfqo")]
+[node name="SpeedBoost" parent="." instance=ExtResource("3_kyfqo")]
