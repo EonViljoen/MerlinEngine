@@ -4,8 +4,9 @@ extends ProjectileModifier
 @export var modName: String = "SpeedBoost"
 @export var speedMod: float = 1.5
 @export var activated: bool = false
-@onready var characterStateResource: CharacterStatResource
+@export var characterStateResource: CharacterStatResource
 
-func apply_modifier(projectile: Node2D):
-	projectile.baseShootSpeed *= speedMod
-	SignalBus.statUpdate.emit(characterStateResource, "projectileShotSpeed", projectile.baseShootSpeed)
+func apply_modifier():
+	characterStateResource.projectileShotSpeed += speedMod
+	SignalBus.statUpdate.emit(characterStateResource, "projectileShotSpeed", characterStateResource.projectileShotSpeed)
+	print("speed boost triggered")

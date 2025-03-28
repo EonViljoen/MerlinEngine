@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1wojy4oghy5p"]
+[gd_scene load_steps=3 format=3 uid="uid://d1wojy4oghy5p"]
 
 [ext_resource type="Script" uid="uid://bf0ewnyu6bkl2" path="res://scripts/modifiers/heat_up.gd" id="1_1whdk"]
+[ext_resource type="Resource" uid="uid://c3gyquhs8rnib" path="res://resources/character_stat_resource.tres" id="2_8h5oc"]
 
 [node name="HeatUp" type="Node"]
 script = ExtResource("1_1whdk")
+characterStateResource = ExtResource("2_8h5oc")

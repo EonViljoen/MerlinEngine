@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx00j8400g20b"]
+[gd_scene load_steps=3 format=3 uid="uid://bx00j8400g20b"]
 
 [ext_resource type="Script" uid="uid://bpqfakordfsfa" path="res://scripts/modifiers/speed_up.gd" id="1_bxeqo"]
+[ext_resource type="Resource" uid="uid://c3gyquhs8rnib" path="res://resources/character_stat_resource.tres" id="2_e6kqk"]
 
 [node name="SpeedUp" type="Node"]
 script = ExtResource("1_bxeqo")
+characterStateResource = ExtResource("2_e6kqk")

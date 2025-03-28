@@ -6,6 +6,7 @@ extends ProjectileModifier
 @export var activated: bool = false
 @export var characterStateResource: CharacterStatResource
 
-func apply_modifier(projectile: Node2D):
+func apply_modifier():
 	characterStateResource.projectileShotDamage += damageMod
 	SignalBus.statUpdate.emit(characterStateResource, "projectileShotDamage", characterStateResource.projectileShotDamage)
+	print("heat up triggered")
