@@ -5,8 +5,8 @@ extends RigidBody2D
 
 @export var projectileRadius : int
 @export var segments : int
-
 @export var damage: float
+var color: Color
 
 func _ready() -> void:
 	create_circle(projectileRadius)
@@ -19,3 +19,4 @@ func create_circle(radius):
 		polyPoints.append(Vector2(cos(angle) * radius, sin(angle) * radius))
 	
 	polygon.polygon = polyPoints
+	polygon.color = color

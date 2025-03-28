@@ -9,4 +9,3 @@ extends ProjectileModifier
 func apply_modifier():
 	characterStateResource.projectileShotDamage += damageMod
 	SignalBus.statUpdate.emit(characterStateResource, "projectileShotDamage", characterStateResource.projectileShotDamage)
-	print("heat up triggered")

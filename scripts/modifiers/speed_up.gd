@@ -9,4 +9,3 @@ extends ProjectileModifier
 func apply_modifier():
 	characterStateResource.projectileShotSpeed += speedMod
 	SignalBus.statUpdate.emit(characterStateResource, "projectileShotSpeed", characterStateResource.projectileShotSpeed)
-	print("speed boost triggered")

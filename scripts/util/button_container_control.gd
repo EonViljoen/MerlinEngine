@@ -6,12 +6,18 @@ extends Container
 
 var modifiers
 
-signal pressedModifier
+signal addedModifier
+signal subtractedModifier
 
 func _ready() -> void:
 	fitContainer()
 	populateSpellPanel()
+	#connect("gui_input", on_mod_button_pressed)
 
+#func _process(delta):
+	#if Input.is_action_pressed("SubtractModifier") && :
+		
+	
 func fitContainer() -> void:
 	self.global_position = spellSidePanel.global_position
 
@@ -20,10 +26,24 @@ func populateSpellPanel() -> void:
 		modifiers = projectileModifierManager.get_modifiers_list()
 	
 	for mod in modifiers:
-		var modButton = Button.new()
+		var modButton: Button = Button.new()
 		modButton.text = mod.modDisplayName
-		modButton.pressed.connect(on_mod_button_pressed.bind(mod.modName))
+		modButton.button_mask = MOUSE_BUTTON_MASK_LEFT | MOUSE_BUTTON_MASK_RIGHT
+
+
+		modButton.gui_input.connect( func(event: InputEvent) :
+			if event.is_pressed():
+				if Input.is_action_pressed("SubtractModifier"):
+					subtractModifier(mod.modName)
+				else:
+					addModifier(mod.modName))
+				
 		self.add_child(modButton)
 
-func on_mod_button_pressed(modifierName: String):
-	pressedModifier.emit(modifierName)
+func subtractModifier(modifierName: String):
+	subtractedModifier.emit(modifierName)
+
+func addModifier(modifierName: String):
+	addedModifier.emit(modifierName)
+
+	

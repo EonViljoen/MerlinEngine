@@ -39,5 +39,6 @@ text = "Spell Manager"
 
 [node name="ProjectileModifierManager" parent="." instance=ExtResource("2_2cpc6")]
 
-[connection signal="pressedModifier" from="SideSpellPanel/ButtonContainer" to="ProjectileModifierManager" method="_on_button_container_pressed_modifier"]
+[connection signal="addedModifier" from="SideSpellPanel/ButtonContainer" to="ProjectileModifierManager" method="_on_button_container_added_modifier"]
+[connection signal="subtractedModifier" from="SideSpellPanel/ButtonContainer" to="ProjectileModifierManager" method="_on_button_container_subtracted_modifier"]
 [connection signal="pressed" from="SideSpellPanel/OpenCloseButton" to="." method="_on_open_close_button_pressed"]

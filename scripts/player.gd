@@ -5,7 +5,6 @@ extends RigidBody2D
 @onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
 @onready var statManager: CharacterStatManager = $CharacterStatManager
 
-@onready var heatUp: float = 0.0
 @onready var stat: PackedScene
 
 @export var projectileScene: PackedScene
@@ -51,7 +50,7 @@ func castSpell():
 		
 		var spell: Node2D = projectileScene.instantiate()
 		spell.baseShootSpeed = characterStats.projectileShotSpeed
-		#modifierManager.apply_modifiers(spell)
+		spell.get_node("RigidBody2D").color = Color.WHITE
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
 				return x.activeTarget == true 
