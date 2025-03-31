@@ -1,6 +1,8 @@
 extends RigidBody2D
 
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@export var spriteFrames : SpriteFrames
+
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 @onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
 @onready var statManager: CharacterStatManager = $CharacterStatManager
@@ -20,13 +22,16 @@ func _ready():
 	characterStats = statManager.characterStatResource
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	setCurrentMana()
+	setPlayerAnimation()
+	
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):
 		if get_viewport().gui_get_focus_owner():
 			return
 		castSpell()
-	
+		
+		
 func setCurrentMana():
 		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
@@ -67,6 +72,11 @@ func castSpell():
 			
 	else:
 		setMessageHUD.emit('Not Enough Mana')
+	
+
+func setPlayerAnimation():
+	sprite.sprite_frames = spriteFrames
+	sprite.animation = "idle_no_cape"
 	
 
 func _on_timer_timeout():

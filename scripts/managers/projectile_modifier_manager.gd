@@ -5,7 +5,6 @@ class_name ProjectileModifierManager
 var activeModifiersArray: Array[ProjectileModifier]
 
 func apply_modifiers():
-	print(activeModifiersArray)
 	for mod in activeModifiersArray:
 		if !mod.activated :
 			mod.activated = true

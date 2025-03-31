@@ -6,7 +6,7 @@
 script = ExtResource("1_dqgqh")
 projectileShotSpeed = 2.5
 projectileShotDamage = 10.0
-projectileSpawnRange = 0.0
+projectileSpawnRange = 30.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
 manaRegenRate = 0.5

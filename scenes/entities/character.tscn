@@ -5,24 +5,24 @@
 [ext_resource type="PackedScene" uid="uid://8o1nqe7w3p21" path="res://scenes/managers/projectile_modifier_manager.tscn" id="3_rk0cf"]
 [ext_resource type="PackedScene" uid="uid://cq2j3bxi52du5" path="res://scenes/managers/character_stat_manager.tscn" id="4_5x4g4"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_xym31"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_5x4g4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p54rp"]
 resource_local_to_scene = true
-size = Vector2(21, 50)
+size = Vector2(48, 48)
 
 [node name="Character" type="RigidBody2D"]
 script = ExtResource("1_om70c")
 projectileScene = ExtResource("2_pjt0s")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(20, 50)
-texture = SubResource("CanvasTexture_xym31")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_5x4g4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
 shape = SubResource("RectangleShape2D_p54rp")
-debug_color = Color(0.741176, 0.32549, 0.207843, 0.160784)
 
 [node name="RegenTimer" type="Timer" parent="."]
 wait_time = 3.0
