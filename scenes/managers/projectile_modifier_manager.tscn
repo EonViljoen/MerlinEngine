@@ -10,5 +10,7 @@ script = ExtResource("1_wjaqd")
 projectileResource = ExtResource("2_kyfqo")
 
 [node name="HeatUp" parent="." instance=ExtResource("2_xrt8l")]
+activated = true
 
 [node name="SpeedBoost" parent="." instance=ExtResource("3_kyfqo")]
+activated = true

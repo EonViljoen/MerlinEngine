@@ -58,5 +58,10 @@ one_shot = true
 autostart = true
 
 [node name="SpellManagerPanel" parent="." instance=ExtResource("3_h0g4p")]
+anchors_preset = -1
+anchor_top = 0.37
+anchor_bottom = 0.37
+offset_top = 0.399994
+offset_bottom = 0.399994
 
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

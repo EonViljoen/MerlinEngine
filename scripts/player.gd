@@ -74,7 +74,7 @@ func castSpell():
 		setMessageHUD.emit('Not Enough Mana')
 	
 
-func setPlayerAnimation():
+func setPlayerAnimation(): # Temp solution
 	sprite.sprite_frames = spriteFrames
 	sprite.animation = "idle_no_cape"
 	
