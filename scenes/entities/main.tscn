@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfrhvekglh4na"]
+[gd_scene load_steps=16 format=3 uid="uid://bfrhvekglh4na"]
 
 [ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://scenes/entities/character.tscn" id="1_145mt"]
 [ext_resource type="Script" uid="uid://0udwwnexsch3" path="res://scripts/projectiles/projectile_physics.gd" id="2_7mycd"]
@@ -9,12 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://scenes/entities/UI/hud.tscn" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://ddhpq8nhita2a" path="res://scripts/projectiles/projectile_animation.gd" id="4_5vw27"]
 [ext_resource type="Texture2D" uid="uid://ssftrj8hhw6f" path="res://assets/art/target/dummy/dummy.png" id="8_umn7a"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_8uv3a"]
-specular_color = Color(0.501961, 0.501961, 0.501961, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1sso"]
-size = Vector2(1152, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eb6dc"]
 animations = [{
@@ -70,21 +64,11 @@ animations = [{
 
 [node name="Battle" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-modulate = Color(0.501961, 0.501961, 0.501961, 1)
-position = Vector2(576, 500)
-scale = Vector2(1151, 20.069)
-texture = SubResource("CanvasTexture_8uv3a")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-show_behind_parent = true
-position = Vector2(576, 500)
-shape = SubResource("RectangleShape2D_e1sso")
+[node name="HUD" parent="." instance=ExtResource("3_h2yge")]
 
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
-position = Vector2(404, 466)
+position = Vector2(261, 468)
+freeze = true
 spriteFrames = SubResource("SpriteFrames_eb6dc")
 projectileScene = SubResource("PackedScene_b3hq8")
 
@@ -94,8 +78,6 @@ script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
-
-[node name="HUD" parent="." instance=ExtResource("3_h2yge")]
 
 [connection signal="setManaHUD" from="Player" to="HUD" method="_on_player_set_mana_hud"]
 [connection signal="setMessageHUD" from="Player" to="HUD" method="_on_player_set_message_hud"]

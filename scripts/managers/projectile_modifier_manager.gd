@@ -4,9 +4,14 @@ class_name ProjectileModifierManager
 @export var projectileResource: ProjectileModifierResource
 var activeModifiersArray: Array[ProjectileModifier]
 
+func _ready() -> void:
+	SignalBus.requestProjectileModifiers.connect(_on_projectile_modifiers_request)
+
 func apply_modifiers():
 	for mod in activeModifiersArray:
+		print(mod)
 		if !mod.activated :
+			print('ey')
 			mod.activated = true
 			mod.apply_modifier()
 
@@ -31,3 +36,6 @@ func _on_button_container_subtracted_modifier(modifierName: String) -> void:
 	SignalBus.updateModifiers.emit(activeModifiersArray)
 	SignalBus.displayHUDMessage.emit(str(modifierName, " has been deactivated"))		
 	
+
+func _on_projectile_modifiers_request():
+	SignalBus.respondProjectileModifiers.emit(activeModifiersArray)
