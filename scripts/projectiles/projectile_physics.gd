@@ -23,7 +23,6 @@ var baseShootSpeed: float
 var adjustedSpeed: float
 
 func _ready() -> void:
-	
 	# Random angle shot
 	randomize()
 	angle = randi_range(-1, 1)
@@ -31,6 +30,7 @@ func _ready() -> void:
 	# Freeze shot then move it with tween
 	rBody.freeze = true
 	_start = global_position
+	
 	tween = get_tree().create_tween()
 	
 	# Shot speed to keep the initial variable small

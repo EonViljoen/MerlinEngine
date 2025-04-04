@@ -21,21 +21,23 @@ func _on_button_container_added_modifier(modifierName: String) -> void:
 		var mod: ProjectileModifier = self.get_node(modifierName).duplicate()
 		activeModifiersArray.append(mod)
 		SignalBus.updateModifiers.emit(activeModifiersArray)
-		SignalBus.displayHUDMessage.emit(str(mod.modDisplayName, " has been activated"))
+		SignalBus.displayHUDMessage.emit(str(mod.modDisplayName, " has been Equipped"))
 	else:
 		SignalBus.displayHUDMessage.emit("Can't Equip More Modifiers!")
 
 
 func _on_button_container_subtracted_modifier(modifierName: String) -> void:
-
-	for mod in activeModifiersArray:
-		if mod.modName == modifierName:
-			var i := activeModifiersArray.find(mod)
-			if i != -1:
-				activeModifiersArray.pop_at(mod.get_index())
-				break
-	SignalBus.updateModifiers.emit(activeModifiersArray)
-	SignalBus.displayHUDMessage.emit(str(modifierName, " has been deactivated"))		
+	if !activeModifiersArray.is_empty():
+		for mod in activeModifiersArray:
+			if mod.modName == modifierName:
+				var i := activeModifiersArray.find(mod)
+				if i != -1:
+					activeModifiersArray.pop_at(mod.get_index())
+					break
+		SignalBus.updateModifiers.emit(activeModifiersArray)
+		SignalBus.displayHUDMessage.emit(str(modifierName, " has been Unequipped"))
+	else:
+		SignalBus.displayHUDMessage.emit("No Modifiers to Unequipped")	
 	
 
 func _on_projectile_modifiers_request():

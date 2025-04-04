@@ -71,7 +71,7 @@ animations = [{
 
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 z_index = 5
-position = Vector2(248, 596)
+position = Vector2(301, 587)
 spriteFrames = SubResource("SpriteFrames_eb6dc")
 projectileScene = SubResource("PackedScene_eb6dc")
 

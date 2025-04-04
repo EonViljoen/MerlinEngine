@@ -55,7 +55,9 @@ func castSpell():
 		
 		var spell: Node2D = projectileScene.instantiate()
 		spell.baseShootSpeed = characterStats.projectileShotSpeed
+		spell.global_position.x = characterStats.projectileSpawnRange
 		spell.get_node("RigidBody2D").color = Color.WHITE
+		
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
 				return x.activeTarget == true 
@@ -66,19 +68,12 @@ func castSpell():
 			
 		else:
 			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
-			print(self.global_position.x)
-			print(characterStats.projectileSpawnRange)
-			print(spell.global_position)
 			spell.get_node("RigidBody2D").damage += characterStats.projectileShotDamage
-			spell.global_position.x = self.global_position.x + characterStats.projectileSpawnRange
+
 			self.add_child(spell)
-			print(self.global_position.x)
-			print(characterStats.projectileSpawnRange)
-			print(spell.global_position)
 			
 	else:
 		setMessageHUD.emit('Not Enough Mana')
-	
 
 func setPlayerAnimation(): # Temp solution
 	sprite.sprite_frames = spriteFrames
@@ -89,5 +84,4 @@ func _on_timer_timeout():
 	regenMana()
 
 func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
-	#print('modifiers updated')
 	modifierManager.activeModifiersArray = updatedModifiers
