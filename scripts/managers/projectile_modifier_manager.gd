@@ -9,9 +9,7 @@ func _ready() -> void:
 
 func apply_modifiers():
 	for mod in activeModifiersArray:
-		print(mod)
 		if !mod.activated :
-			print('ey')
 			mod.activated = true
 			mod.apply_modifier()
 
@@ -29,10 +27,13 @@ func _on_button_container_added_modifier(modifierName: String) -> void:
 
 
 func _on_button_container_subtracted_modifier(modifierName: String) -> void:
+
 	for mod in activeModifiersArray:
 		if mod.modName == modifierName:
-			activeModifiersArray.pop_at(mod.get_index())
-			break
+			var i := activeModifiersArray.find(mod)
+			if i != -1:
+				activeModifiersArray.pop_at(mod.get_index())
+				break
 	SignalBus.updateModifiers.emit(activeModifiersArray)
 	SignalBus.displayHUDMessage.emit(str(modifierName, " has been deactivated"))		
 	

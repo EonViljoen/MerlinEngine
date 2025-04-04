@@ -75,4 +75,6 @@ func _on_respond_character_stat(characterStatResponse: CharacterStatResource):
 	characterStats = characterStatResponse
 
 func _on_response_projectile_modifiers(activeProjectileModifiersResponse: Array[ProjectileModifier]):
-	activeProjectileMods = activeProjectileModifiersResponse
+	if !activeProjectileModifiersResponse.is_empty():
+		activeProjectileMods = activeProjectileModifiersResponse
+	
