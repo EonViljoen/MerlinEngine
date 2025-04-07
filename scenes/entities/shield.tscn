@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://e03h7xl1wtdl"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_y5wla"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y5wla"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrqq3"]
+resource_local_to_scene = true
+size = Vector2(3, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5wla"]
+resource_local_to_scene = true
+size = Vector2(6, 40)
+
+[node name="Shield" type="Node2D" groups=["Shields"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1.5, 2.98023e-08)
+scale = Vector2(5, 40)
+texture = SubResource("CanvasTexture_y5wla")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+disable_mode = 2
+physics_material_override = SubResource("PhysicsMaterial_y5wla")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_rrqq3")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_y5wla")

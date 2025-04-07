@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtjaix5asacrc"]
+[gd_scene load_steps=9 format=3 uid="uid://dtjaix5asacrc"]
 
 [ext_resource type="Script" uid="uid://cag0itqvkl1df" path="res://scripts/player.gd" id="1_om70c"]
 [ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://scenes/entities/projectile.tscn" id="2_pjt0s"]
+[ext_resource type="PackedScene" uid="uid://e03h7xl1wtdl" path="res://scenes/entities/shield.tscn" id="3_khvuq"]
 [ext_resource type="PackedScene" uid="uid://8o1nqe7w3p21" path="res://scenes/managers/projectile_modifier_manager.tscn" id="3_rk0cf"]
 [ext_resource type="PackedScene" uid="uid://cq2j3bxi52du5" path="res://scenes/managers/character_stat_manager.tscn" id="4_5x4g4"]
 
@@ -32,6 +33,8 @@ sprite_frames = SubResource("SpriteFrames_5x4g4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
 shape = SubResource("RectangleShape2D_p54rp")
+
+[node name="Shield" parent="." instance=ExtResource("3_khvuq")]
 
 [node name="RegenTimer" type="Timer" parent="."]
 wait_time = 3.0

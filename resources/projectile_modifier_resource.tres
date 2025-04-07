@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource("1_jypx1")
-speed = 50.0
-damage = 10.0
-cost = 10.0
-color = Color(1, 1, 1, 1)
+speedMod = 0.0
+damageMod = 0.0
+costMod = 0.0
+colorMod = Color(1, 1, 1, 1)
+stack = 0
+activated = false

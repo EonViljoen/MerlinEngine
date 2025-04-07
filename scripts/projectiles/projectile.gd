@@ -3,19 +3,24 @@ extends RigidBody2D
 @onready var polygon : Polygon2D = $Polygon2D
 @onready var collission: CollisionShape2D = $CollisionShape2D
 
-@export var projectileRadius : int
-@export var segments : int
+@export var projectileRadius : float
+@export var projectileEdgesInput: float
 @export var damage: float
-var color: Color
+
+@onready var color: Color
+@onready var projectileEdges: float
 
 func _ready() -> void:
+	projectileEdges = projectileEdgesInput
+	print(projectileEdges)
+	print(projectileEdgesInput)
 	create_circle(projectileRadius)
 
 func create_circle(radius):
 	var polyPoints = []
 	
-	for i in range(segments):
-		var angle = i * (TAU / segments)
+	for i in range(projectileEdges):
+		var angle = i * (TAU / projectileEdges)
 		polyPoints.append(Vector2(cos(angle) * radius, sin(angle) * radius))
 	
 	polygon.polygon = polyPoints

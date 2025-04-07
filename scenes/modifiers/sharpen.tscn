@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3v0a7ig54j44"]
+
+[ext_resource type="Script" uid="uid://cvblc630go8qn" path="res://scripts/modifiers/sharpen.gd" id="1_85d0a"]
+
+[node name="Sharpen" type="Node"]
+script = ExtResource("1_85d0a")

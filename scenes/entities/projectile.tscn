@@ -19,8 +19,8 @@ script = ExtResource("1_8ngof")
 physics_material_override = SubResource("PhysicsMaterial_qxf0c")
 can_sleep = false
 script = ExtResource("2_ykqt4")
-projectileRadius = 12
-segments = 6
+projectileRadius = 12.0
+projectileEdgesInput = 36.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_dgwo2")

@@ -1,7 +1,8 @@
 extends RigidBody2D
 
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @export var spriteFrames : SpriteFrames
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+
 
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 @onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
@@ -12,8 +13,9 @@ extends RigidBody2D
 @export var projectileScene: PackedScene
 @export var decimalRoundingStep: float
 
-var characterStats: CharacterStatResource
+@onready var shield = $Shield
 
+var characterStats: CharacterStatResource
 
 signal setManaHUD
 signal setMessageHUD
@@ -31,6 +33,7 @@ func _process(_delta):
 			return
 		castSpell()
 		
+	setShield()
 		
 func setCurrentMana():
 		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
@@ -79,6 +82,13 @@ func setPlayerAnimation(): # Temp solution
 	sprite.sprite_frames = spriteFrames
 	sprite.animation = "idle_no_cape"
 	
+func setShield():
+	var mousePosition = get_global_mouse_position()
+	var mouseDirection = (mousePosition - global_position).normalized()
+	var angle = mouseDirection.angle()
+	
+	shield.global_position = global_position + mouseDirection * (characterStats.shieldDistance*10)
+	shield.rotation = angle
 
 func _on_timer_timeout():
 	regenMana()

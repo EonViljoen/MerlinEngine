@@ -9,4 +9,5 @@ projectileShotDamage = 10.0
 projectileSpawnRange = 30.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
-manaRegenRate = 0.5
+manaRegenRate = 0.05
+shieldDistance = 6.0
