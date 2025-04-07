@@ -22,14 +22,15 @@ theme_override_font_sizes/font_size = 16
 text = "0"
 
 [node name="MessageLabel" type="Label" parent="."]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.443
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.443
 offset_left = -70.0
-offset_top = -20.0
+offset_top = -20.44
 offset_right = 52.0
+offset_bottom = -0.440033
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

@@ -67,17 +67,17 @@ animations = [{
 
 [node name="HUD" parent="." instance=ExtResource("3_h2yge")]
 
-[node name="LevelForeground" parent="." instance=ExtResource("10_b3hq8")]
+[node name="Level" parent="." instance=ExtResource("10_b3hq8")]
 
 [node name="Player" parent="." instance=ExtResource("1_145mt")]
 z_index = 5
-position = Vector2(301, 587)
+position = Vector2(310, 601)
 spriteFrames = SubResource("SpriteFrames_eb6dc")
 projectileScene = SubResource("PackedScene_eb6dc")
 
 [node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
 z_index = 5
-position = Vector2(1093, 595)
+position = Vector2(1093, 601)
 script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
