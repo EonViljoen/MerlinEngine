@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://8o1nqe7w3p21"]
+[gd_scene load_steps=6 format=3 uid="uid://8o1nqe7w3p21"]
 
 [ext_resource type="Script" uid="uid://vgo8vsryg6m8" path="res://scripts/managers/projectile_modifier_manager.gd" id="1_wjaqd"]
 [ext_resource type="Resource" uid="uid://i6dqoq4qqq3b" path="res://resources/projectile_modifier_resource.tres" id="2_kyfqo"]
 [ext_resource type="PackedScene" uid="uid://d1wojy4oghy5p" path="res://scenes/modifiers/heat_up.tscn" id="2_xrt8l"]
 [ext_resource type="PackedScene" uid="uid://bx00j8400g20b" path="res://scenes/modifiers/speed_up.tscn" id="3_kyfqo"]
+[ext_resource type="PackedScene" uid="uid://c3v0a7ig54j44" path="res://scenes/modifiers/sharpen.tscn" id="5_kyfqo"]
 
 [node name="ProjectileModifierManager" type="Node"]
 script = ExtResource("1_wjaqd")
@@ -12,3 +13,5 @@ projectileResource = ExtResource("2_kyfqo")
 [node name="HeatUp" parent="." instance=ExtResource("2_xrt8l")]
 
 [node name="SpeedBoost" parent="." instance=ExtResource("3_kyfqo")]
+
+[node name="Sharpen" parent="." instance=ExtResource("5_kyfqo")]

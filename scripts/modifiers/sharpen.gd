@@ -3,10 +3,19 @@ extends ProjectileModifier
 @export var modDisplayName: String = "Sharpen"
 @export var modName: String = "Sharpen"
 @export var damageMod: float = 10
-@export var criticalMod: float= 5
+@export var criticalMod: float = 5
+@export var projectileEdgesMod : float = -2
 @export var activated: bool = false
-@export var characterStateResource: CharacterStatResource
+@export var projectileModifierResource : ProjectileModifierResource
 
 func apply_modifier():
-	characterStateResource.projectileShotDamage += damageMod
-	SignalBus.statUpdate.emit(characterStateResource, "projectileShotDamage", characterStateResource.projectileShotDamage)
+	projectileModifierResource.damageMod += damageMod
+	projectileModifierResource.criticalMod += criticalMod
+	projectileModifierResource.edgeCountMod += projectileEdgesMod
+	SignalBus.stackProjectileModifier.emit()
+	
+func remove_modifier():
+	projectileModifierResource.damageMod -= damageMod
+	projectileModifierResource.criticalMod -= criticalMod
+	projectileModifierResource.edgeCountMod -= projectileEdgesMod
+	SignalBus.unstackProjectileModifier.emit()

@@ -32,6 +32,7 @@ func _on_button_container_subtracted_modifier(modifierName: String) -> void:
 			if mod.modName == modifierName:
 				var i := activeModifiersArray.find(mod)
 				if i != -1:
+					mod.activated = false
 					activeModifiersArray.pop_at(mod.get_index())
 					break
 		SignalBus.updateModifiers.emit(activeModifiersArray)
