@@ -4,10 +4,31 @@
 
 [resource]
 script = ExtResource("1_dqgqh")
-projectileShotSpeed = 2.5
-projectileShotDamage = 10.0
-projectileSpawnRange = 30.0
+strengthStat = 5.0
+agilityStat = 5.0
+enduranceStat = 5.0
+intelligenceStat = 5.0
+wisdomStat = 5.0
+charismaStat = 5.0
+perceptionStat = 5.0
+accuracyStat = 5.0
+willpowerStat = 5.0
+luckStat = 5.0
+baseHealthAmount = 100.0
+currentHealthAmount = 100.0
+maxHealthAmount = 100.0
+manaHealthRate = 0.25
+manaHealthAmount = 10.0
+baseManaAmount = 100.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
 manaRegenRate = 0.05
+manaRegenAmount = 10.0
+projectileShotSpeed = 2.5
+projectileShotDamage = 10.0
+projectileSpawnRange = 30.0
+projectileCooldown = 5.0
+criticalChance = 5.0
+criticalmultiplier = 1.5
 shieldDistance = 6.0
+shieldCount = 1.0
