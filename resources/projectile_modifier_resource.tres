@@ -4,9 +4,15 @@
 
 [resource]
 script = ExtResource("1_jypx1")
-speedMod = 0.0
-damageMod = 0.0
-costMod = 0.0
 colorMod = Color(1, 1, 1, 1)
-stack = 0
+speedMod = 5.0
+edgeCountMod = 36.0
+damageMod = 10.0
+criticalMod = 0.5
+redirectionModCount = 0.0
+redirectionModDelay = 0.0
+bounceMod = 0.0
+knockbackMod = 1.0
+costMod = 10.0
+pierceMod = 0.0
 activated = false

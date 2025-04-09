@@ -12,10 +12,10 @@ func apply_modifier():
 	projectileModifierResource.damageMod += damageMod
 	projectileModifierResource.criticalMod += criticalMod
 	projectileModifierResource.edgeCountMod += projectileEdgesMod
-	SignalBus.stackProjectileModifier.emit()
+	#SignalBus.stackProjectileModifier.emit(projectileModifierResource)
 	
-func remove_modifier():
+func unapply_modifier():
 	projectileModifierResource.damageMod -= damageMod
 	projectileModifierResource.criticalMod -= criticalMod
 	projectileModifierResource.edgeCountMod -= projectileEdgesMod
-	SignalBus.unstackProjectileModifier.emit()
+	#SignalBus.unstackProjectileModifier.emit(projectileModifierResource)

@@ -12,12 +12,7 @@ signal subtractedModifier
 func _ready() -> void:
 	fitContainer()
 	populateSpellPanel()
-	#connect("gui_input", on_mod_button_pressed)
 
-#func _process(delta):
-	#if Input.is_action_pressed("SubtractModifier") && :
-		
-	
 func fitContainer() -> void:
 	self.global_position = spellSidePanel.global_position
 

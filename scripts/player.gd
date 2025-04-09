@@ -5,8 +5,8 @@ extends RigidBody2D
 
 
 @onready var colShape: CollisionShape2D = $CollisionShape2D
-@onready var modifierManager: ProjectileModifierManager = $ProjectileModifierManager
-@onready var statManager: CharacterStatManager = $CharacterStatManager
+@export var projectileModifierManager: ProjectileModifierManager
+@export var characterStatManager: CharacterStatManager
 
 @onready var stat: PackedScene
 
@@ -16,16 +16,17 @@ extends RigidBody2D
 @onready var shield = $Shield
 
 var characterStats: CharacterStatResource
+var projectileModifier: ProjectileModifierResource
 
 signal setManaHUD
 signal setMessageHUD
 
 func _ready():
-	characterStats = statManager.characterStatResource
+	characterStats = characterStatManager.characterStatResource
+	projectileModifier = projectileModifierManager.projectileModifierResource
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	setCurrentMana()
 	setPlayerAnimation()
-	
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):
@@ -49,17 +50,17 @@ func regenMana():
 	
 
 func castSpell():
-	modifierManager.apply_modifiers()
+	projectileModifierManager.apply_modifiers()
 
 	if characterStats.currentManaAmount >= 10:
 		
-		characterStats.currentManaAmount -= 10 # Have to do something like using spells nodes which stores cost etc
+		characterStats.currentManaAmount -= projectileModifier.costMod # Have to do something like using spells nodes which stores cost etc
 		setCurrentMana()
 		
 		var spell: Node2D = projectileScene.instantiate()
-		spell.baseShootSpeed = characterStats.projectileShotSpeed
+		spell.baseShootSpeed = projectileModifier.speedMod
 		spell.global_position.x = characterStats.projectileSpawnRange
-		spell.get_node("RigidBody2D").color = Color.WHITE
+		spell.get_node("RigidBody2D").color = projectileModifier.colorMod
 		
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
@@ -71,7 +72,7 @@ func castSpell():
 			
 		else:
 			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
-			spell.get_node("RigidBody2D").damage += characterStats.projectileShotDamage
+			spell.get_node("RigidBody2D").damage += projectileModifier.damageMod
 
 			self.add_child(spell)
 			
@@ -94,4 +95,4 @@ func _on_timer_timeout():
 	regenMana()
 
 func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
-	modifierManager.activeModifiersArray = updatedModifiers
+	projectileModifierManager.activeModifiersArray = updatedModifiers

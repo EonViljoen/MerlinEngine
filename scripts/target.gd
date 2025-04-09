@@ -20,6 +20,7 @@ func _ready() -> void:
 	
 
 func take_damage(amount):
+	print(amount)
 	enemyDamage.emit(amount)
 
 func is_target():

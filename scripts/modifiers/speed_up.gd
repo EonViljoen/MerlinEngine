@@ -5,7 +5,11 @@ extends ProjectileModifier
 @export var speedMod: float = 1.5
 @export var activated: bool = false
 @export var characterStateResource: CharacterStatResource
+@export var projectileModifierResource : ProjectileModifierResource
+
 
 func apply_modifier():
-	characterStateResource.projectileShotSpeed += speedMod
-	SignalBus.statUpdate.emit(characterStateResource, "projectileShotSpeed", characterStateResource.projectileShotSpeed)
+	projectileModifierResource.speedMod += speedMod
+
+func unapply_modifier():
+	projectileModifierResource.speedMod -= speedMod

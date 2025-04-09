@@ -12,8 +12,6 @@ extends RigidBody2D
 
 func _ready() -> void:
 	projectileEdges = projectileEdgesInput
-	print(projectileEdges)
-	print(projectileEdgesInput)
 	create_circle(projectileRadius)
 
 func create_circle(radius):

@@ -4,8 +4,10 @@ extends ProjectileModifier
 @export var modName: String = "HeatUp"
 @export var damageMod: float = 15
 @export var activated: bool = false
+@export var projectileModifierResource : ProjectileModifierResource
 @export var characterStateResource: CharacterStatResource
 
 func apply_modifier():
-	characterStateResource.projectileShotDamage += damageMod
-	SignalBus.statUpdate.emit(characterStateResource, "projectileShotDamage", characterStateResource.projectileShotDamage)
+	projectileModifierResource.damageMod += damageMod
+func unapply_modifier():
+	projectileModifierResource.damageMod -= damageMod

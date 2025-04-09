@@ -49,9 +49,27 @@ z_index = 5
 position = Vector2(310, 601)
 spriteFrames = SubResource("SpriteFrames_eb6dc")
 
-[node name="Enemy" parent="." groups=["Targets"] instance=ExtResource("1_145mt")]
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
 z_index = 5
-position = Vector2(1093, 601)
+position = Vector2(1101, 602)
+script = ExtResource("2_ur8c2")
+spriteFrames = SubResource("SpriteFrames_b3hq8")
+isDummy = true
+activeTarget = true
+
+[node name="Enemy2" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+z_index = 5
+position = Vector2(1147, 321)
+script = ExtResource("2_ur8c2")
+spriteFrames = SubResource("SpriteFrames_b3hq8")
+isDummy = true
+activeTarget = true
+
+[node name="Enemy3" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+z_index = 5
+position = Vector2(1187, 742)
 script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
@@ -59,4 +77,6 @@ activeTarget = true
 
 [connection signal="setManaHUD" from="Player" to="HUD" method="_on_player_set_mana_hud"]
 [connection signal="setMessageHUD" from="Player" to="HUD" method="_on_player_set_message_hud"]
-[connection signal="enemyDamage" from="Enemy" to="HUD" method="_on_enemy_enemy_damage"]
+[connection signal="enemyDamage" from="Enemies/Enemy" to="HUD" method="_on_enemy_enemy_damage"]
+[connection signal="enemyDamage" from="Enemies/Enemy2" to="HUD" method="_on_enemy_enemy_damage"]
+[connection signal="enemyDamage" from="Enemies/Enemy3" to="HUD" method="_on_enemy_enemy_damage"]

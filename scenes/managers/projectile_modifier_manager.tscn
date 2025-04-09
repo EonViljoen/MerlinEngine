@@ -8,10 +8,13 @@
 
 [node name="ProjectileModifierManager" type="Node"]
 script = ExtResource("1_wjaqd")
-projectileResource = ExtResource("2_kyfqo")
+projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="HeatUp" parent="." instance=ExtResource("2_xrt8l")]
+projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="SpeedBoost" parent="." instance=ExtResource("3_kyfqo")]
+projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="Sharpen" parent="." instance=ExtResource("5_kyfqo")]
+projectileModifierResource = ExtResource("2_kyfqo")
