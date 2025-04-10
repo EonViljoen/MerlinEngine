@@ -5,7 +5,6 @@ extends RigidBody2D
 
 @export var projectileRadius : float
 @export var projectileEdgesInput: float
-@export var damage: float
 
 @onready var color: Color
 @onready var projectileEdges: float
@@ -13,6 +12,9 @@ extends RigidBody2D
 func _ready() -> void:
 	projectileEdges = projectileEdgesInput
 	create_circle(projectileRadius)
+
+func modify_projetile_appearance() -> void:
+	pass
 
 func create_circle(radius):
 	var polyPoints = []

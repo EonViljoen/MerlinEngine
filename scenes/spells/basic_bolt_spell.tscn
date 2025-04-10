@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl8l3w2wm8wmv"]
+
+[sub_resource type="GDScript" id="GDScript_88sji"]
+script/source = "extends SpellDataResource
+
+@export var spellScene: PackedScene = preload(\"res://scenes/spells/basic_bolt_spell.tscn\")  # Preload the projectile scene
+"
+
+[node name="BasicBoltSpell" type="Node"]
+script = SubResource("GDScript_88sji")
+spellScene = null
+spellName = null
+baseShootSpeed = 5.0
+damage = 10.0
+color = Color(1, 0.457023, 0.989466, 1)
+cost = 5.0
+cooldown = 2.0
+spawnOffset = Vector2(30, 0)
+spellScene = null

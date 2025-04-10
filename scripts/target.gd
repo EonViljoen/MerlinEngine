@@ -16,11 +16,8 @@ func _ready() -> void:
 		self.freeze = true
 		setDummyAnimation()
 		disableShield()
-	
-	
 
 func take_damage(amount):
-	print(amount)
 	enemyDamage.emit(amount)
 
 func is_target():

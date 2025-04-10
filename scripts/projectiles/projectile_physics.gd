@@ -7,6 +7,8 @@ extends Node2D
 @onready var absoluteArcPoints: float = 10.0 #Arcs to happen, only for tracking
 @onready var projectileGravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var spellData: SpellDataResource
+
 # Projectile path variables
 var angle: int
 var dest: Vector2
@@ -18,26 +20,41 @@ var tween: Tween
 # Projectile collision variables
 var hasCollided: bool = false
 
-# Projectile shot speed variables
-var baseShootSpeed: float
+# Projectile shot variables
+@export var adjustedSpeedFactor: float
 var adjustedSpeed: float
+var cost: float
+var cooldown: float
 
 func _ready() -> void:
+	if !spellData:
+		return
+
+	rBody.modulate = spellData.color
+	_start = global_position + spellData.spawnOffset
+	adjustedSpeed = spellData.baseShootSpeed * adjustedSpeedFactor # 100 is to keep the initial Shotspeed variable small
+	
+	# Freeze shot then move it with tween
+	rBody.freeze = true	
+
+	# Tween for movement animation
+	tween = get_tree().create_tween()
+
 	# Random angle shot
 	randomize()
 	angle = randi_range(-1, 1)
 	
-	# Freeze shot then move it with tween
-	rBody.freeze = true
-	_start = global_position
-	
-	tween = get_tree().create_tween()
-	
-	# Shot speed to keep the initial variable small
-	adjustedSpeed = baseShootSpeed * 100
-	
 	# Actual shot
 	arc_shot(dest, _start)
+	print(spellData.spellName)
+
+
+func setup_modifiers(projectileModifiers: ProjectileModifier) -> void:
+	print('modifiers')
+	pass
+	#spell.baseShootSpeed = projectileModifier.speedMod
+	#spell.global_position.x = characterStats.projectileSpawnRange
+	#spell.get_node("RigidBody2D").color = projectileModifier.colorMod
 
 func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	var distance: float
@@ -73,7 +90,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 	# If target has been hit, damage, kill animation and set collided to true
 	if body.is_in_group("Targets"):
-		body.take_damage($RigidBody2D.damage)
+		body.take_damage(spellData.damage)
 		tween.kill()
 		hasCollided = true
 		

@@ -5,6 +5,9 @@ extends Polygon2D
 
 func _ready() -> void:
 	pulse()
+	
+func modify_projectile_animation() -> void:
+	pass
 
 func pulse():
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).set_loops()

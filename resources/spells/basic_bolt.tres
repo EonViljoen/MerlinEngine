@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SpellDataResource" load_steps=3 format=3 uid="uid://c2mwj7qag40pp"]
+
+[ext_resource type="Script" uid="uid://djr20dy57wvt8" path="res://scripts/resources/spell_data_resource.gd" id="1_721gn"]
+[ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://scenes/entities/projectile.tscn" id="1_u6cnn"]
+
+[resource]
+script = ExtResource("1_721gn")
+spellName = "Basic Bolt"
+baseShootSpeed = 5.0
+damage = 10.0
+color = Color(1, 0.654203, 0.993874, 1)
+cost = 5.0
+cooldown = 2.0
+spawnOffset = Vector2(30, 0)
+spellScene = ExtResource("1_u6cnn")
+metadata/_custom_type_script = "uid://djr20dy57wvt8"

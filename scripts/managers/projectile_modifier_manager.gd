@@ -6,8 +6,6 @@ var activeModifiersArray: Array[ProjectileModifier]
 
 func _ready() -> void:
 	SignalBus.requestProjectileModifiers.connect(_on_projectile_modifiers_request)
-	SignalBus.stackProjectileModifier.connect(_on_stack_projectile_modifier)
-	SignalBus.unstackProjectileModifier.connect(_on_unstack_projectile_modifier)
 	
 func apply_modifiers() -> void:
 	for mod in activeModifiersArray:

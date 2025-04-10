@@ -3,15 +3,16 @@ extends RigidBody2D
 @export var spriteFrames : SpriteFrames
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 
-
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 @export var projectileModifierManager: ProjectileModifierManager
 @export var characterStatManager: CharacterStatManager
 
-@onready var stat: PackedScene
-
 @export var projectileScene: PackedScene
 @export var decimalRoundingStep: float
+
+@export var spellSlots: Array = []  # List of available spell data (BasicBoltSpell, etc.)
+var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
+
 
 @onready var shield = $Shield
 
@@ -24,20 +25,23 @@ signal setMessageHUD
 func _ready():
 	characterStats = characterStatManager.characterStatResource
 	projectileModifier = projectileModifierManager.projectileModifierResource
+	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
+	
 	setCurrentMana()
 	setPlayerAnimation()
+	loadSpell()
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):
 		if get_viewport().gui_get_focus_owner():
 			return
-		castSpell()
+		shootProjectile()
 		
 	setShield()
 		
 func setCurrentMana():
-		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
+	setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
 func regenMana():
 	if characterStats.currentManaAmount != characterStats.maxManaAmount:
@@ -47,37 +51,60 @@ func regenMana():
 			characterStats.currentManaAmount = characterStats.maxManaAmount
 		
 		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
-	
 
-func castSpell():
-	projectileModifierManager.apply_modifiers()
 
-	if characterStats.currentManaAmount >= 10:
+func shootProjectile():
+	if castedSpell == null:
+		print("no spell")
+		return
 		
-		characterStats.currentManaAmount -= projectileModifier.costMod # Have to do something like using spells nodes which stores cost etc
+	if characterStats.currentManaAmount >= castedSpell.cost:
+		
+		characterStats.currentManaAmount -= castedSpell.cost
 		setCurrentMana()
 		
-		var spell: Node2D = projectileScene.instantiate()
-		spell.baseShootSpeed = projectileModifier.speedMod
-		spell.global_position.x = characterStats.projectileSpawnRange
-		spell.get_node("RigidBody2D").color = projectileModifier.colorMod
+		var projectile = castedSpell.spellScene.instantiate()
+		projectile.spellData = castedSpell
+		#projectile.setup_modifiers(projectileModifier)
+
 		
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
 			func(x):
-				return x.activeTarget == true 
+				return x.activeTarget == true
 		).get(0)
 		
 		if activeTarget == null:
 			return
 			
 		else:
-			spell.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
-			spell.get_node("RigidBody2D").damage += projectileModifier.damageMod
-
-			self.add_child(spell)
-			
+			projectile.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
+		
+		
+		self.add_child(projectile)
 	else:
 		setMessageHUD.emit('Not Enough Mana')
+
+#func shootProjectile():
+	#
+	#
+	##projectileModifierManager.apply_modifiers()
+		#
+		#
+
+		#var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
+			#func(x):
+				#return x.activeTarget == true
+		#).get(0)
+		#
+		#if activeTarget == null:
+			#return
+			#
+		#else:
+			#spellInstance.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
+			##spell.get_node("RigidBody2D").damage += projectileModifier.damageMod
+#
+			#self.add_child(spellInstance)
+			#
 
 func setPlayerAnimation(): # Temp solution
 	sprite.sprite_frames = spriteFrames
@@ -90,6 +117,17 @@ func setShield():
 	
 	shield.global_position = global_position + mouseDirection * (characterStats.shieldDistance*10)
 	shield.rotation = angle
+	
+func loadSpell() -> void:
+	var basicBolt = preload("res://resources/spells/basic_bolt.tres")
+	spellSlots.append(basicBolt)
+	castedSpell = spellSlots[0]  # Set the first spell as the active one
+
+#unlock_spell(preload("res://Spells/Fireball.tres"))
+#func unlock_spell(new_spell: SpellDataResource):
+	#if not spellSlots.has(new_spell):
+		#spellSlots.append(new_spell)
+		#print("Unlocked new spell:", new_spell.spell_name)
 
 func _on_timer_timeout():
 	regenMana()
