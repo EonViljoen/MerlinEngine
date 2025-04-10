@@ -11,10 +11,12 @@ script = ExtResource("1_wjaqd")
 projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="HeatUp" parent="." instance=ExtResource("2_xrt8l")]
+colorMod = Color(1, 0.672615, 0.586456, 1)
 projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="SpeedBoost" parent="." instance=ExtResource("3_kyfqo")]
 projectileModifierResource = ExtResource("2_kyfqo")
 
 [node name="Sharpen" parent="." instance=ExtResource("5_kyfqo")]
+colorMod = Color(0.737193, 0.737193, 0.737193, 1)
 projectileModifierResource = ExtResource("2_kyfqo")

@@ -13,18 +13,15 @@ extends RigidBody2D
 @export var spellSlots: Array = []  # List of available spell data (BasicBoltSpell, etc.)
 var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
 
-
 @onready var shield = $Shield
 
 var characterStats: CharacterStatResource
-var projectileModifier: ProjectileModifierResource
 
 signal setManaHUD
 signal setMessageHUD
 
 func _ready():
 	characterStats = characterStatManager.characterStatResource
-	projectileModifier = projectileModifierManager.projectileModifierResource
 	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	
@@ -55,7 +52,7 @@ func regenMana():
 
 func shootProjectile():
 	if castedSpell == null:
-		print("no spell")
+		setMessageHUD.emit('No Spell Selected')
 		return
 		
 	if characterStats.currentManaAmount >= castedSpell.cost:
@@ -65,7 +62,7 @@ func shootProjectile():
 		
 		var projectile = castedSpell.spellScene.instantiate()
 		projectile.spellData = castedSpell
-		#projectile.setup_modifiers(projectileModifier)
+		projectileModifierManager.apply_modifiers()
 
 		
 		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
@@ -75,7 +72,6 @@ func shootProjectile():
 		
 		if activeTarget == null:
 			return
-			
 		else:
 			projectile.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
 		
@@ -83,28 +79,6 @@ func shootProjectile():
 		self.add_child(projectile)
 	else:
 		setMessageHUD.emit('Not Enough Mana')
-
-#func shootProjectile():
-	#
-	#
-	##projectileModifierManager.apply_modifiers()
-		#
-		#
-
-		#var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
-			#func(x):
-				#return x.activeTarget == true
-		#).get(0)
-		#
-		#if activeTarget == null:
-			#return
-			#
-		#else:
-			#spellInstance.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
-			##spell.get_node("RigidBody2D").damage += projectileModifier.damageMod
-#
-			#self.add_child(spellInstance)
-			#
 
 func setPlayerAnimation(): # Temp solution
 	sprite.sprite_frames = spriteFrames

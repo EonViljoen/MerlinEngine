@@ -8,6 +8,7 @@
 script = ExtResource("1_64ctp")
 
 [node name="DamageLabel" type="Label" parent="."]
+texture_filter = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -22,6 +23,7 @@ theme_override_font_sizes/font_size = 16
 text = "0"
 
 [node name="MessageLabel" type="Label" parent="."]
+texture_filter = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.443
@@ -39,6 +41,7 @@ theme_override_font_sizes/font_size = 16
 text = "Click To Shoot"
 
 [node name="ManaLabel" type="Label" parent="."]
+texture_filter = 1
 offset_left = 20.0
 offset_top = 50.0
 offset_right = 60.0
@@ -48,29 +51,33 @@ theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16
 
 [node name="DebugLabel" type="Label" parent="."]
+texture_filter = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.077
-anchor_right = 0.5
-anchor_bottom = 0.077
-offset_left = -153.5
-offset_top = -0.160011
-offset_right = 153.5
-offset_bottom = 259.84
+anchor_left = 0.503
+anchor_top = 0.183
+anchor_right = 0.503
+anchor_bottom = 0.183
+offset_left = -153.76
+offset_top = -129.64
+offset_right = 153.24
+offset_bottom = 130.36
 grow_horizontal = 2
+grow_vertical = 2
 autowrap_mode = 2
 
 [node name="ActiveModDebugLabel" type="Label" parent="."]
+texture_filter = 1
 offset_left = 1141.0
-offset_top = 1.0
+offset_top = 93.0
 offset_right = 1239.0
-offset_bottom = 249.0
+offset_bottom = 341.0
 
 [node name="MessageTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
 [node name="SpellManagerPanel" parent="." instance=ExtResource("3_h0g4p")]
+texture_filter = 1
 anchors_preset = -1
 anchor_top = 0.37
 anchor_bottom = 0.37

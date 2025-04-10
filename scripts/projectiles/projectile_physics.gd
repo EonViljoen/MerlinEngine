@@ -30,9 +30,9 @@ func _ready() -> void:
 	if !spellData:
 		return
 
-	rBody.modulate = spellData.color
+	rBody.modulate = spellData.color * GlobalProjectileModifiers.modifier_resource.colorMod
 	_start = global_position + spellData.spawnOffset
-	adjustedSpeed = spellData.baseShootSpeed * adjustedSpeedFactor # 100 is to keep the initial Shotspeed variable small
+	adjustedSpeed = (spellData.baseShootSpeed + GlobalProjectileModifiers.modifier_resource.speedMod) * adjustedSpeedFactor
 	
 	# Freeze shot then move it with tween
 	rBody.freeze = true	
@@ -46,15 +46,7 @@ func _ready() -> void:
 	
 	# Actual shot
 	arc_shot(dest, _start)
-	print(spellData.spellName)
 
-
-func setup_modifiers(projectileModifiers: ProjectileModifier) -> void:
-	print('modifiers')
-	pass
-	#spell.baseShootSpeed = projectileModifier.speedMod
-	#spell.global_position.x = characterStats.projectileSpawnRange
-	#spell.get_node("RigidBody2D").color = projectileModifier.colorMod
 
 func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	var distance: float
@@ -90,15 +82,15 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 	# If target has been hit, damage, kill animation and set collided to true
 	if body.is_in_group("Targets"):
-		body.take_damage(spellData.damage)
+		body.take_damage(spellData.damage + GlobalProjectileModifiers.modifier_resource.damageMod)
 		tween.kill()
 		hasCollided = true
 		
 		# Bounce effect to be added somewhere
-		var bounce = func() : 
-			rBody.freeze = false
-			rBody.apply_impulse(Vector2.LEFT * 100)
-		bounce.call_deferred()
+		#var bounce = func() : 
+			#rBody.freeze = false
+			#rBody.apply_impulse(Vector2.LEFT * 100)
+		#bounce.call_deferred()
 		
 		# Timer to despawn projectiles, add somewhere
 		#var timer = get_tree().create_timer(1.0)
