@@ -1,7 +1,7 @@
 extends Node
 class_name ProjectileModifierManager
 
-@export var projectileModifierResource: ProjectileModifierResource
+@export var projectileModifierResource: ProjectileModifierResource # Maybe remove?
 var activeModifiersArray: Array[ProjectileModifier]
 
 func _ready() -> void:
@@ -12,6 +12,7 @@ func apply_modifiers() -> void:
 		if !mod.activated :
 			mod.activated = true
 			mod.apply_modifier()
+			SpellManager.add_modifier(mod.modName)
 
 func get_modifiers_list() -> Array[Node]:
 	return get_children()

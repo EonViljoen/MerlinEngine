@@ -24,3 +24,5 @@ class_name SpellDataResource
 @export var spawnOffset: Vector2 = Vector2.ZERO
 
 @export var spellScene: PackedScene  # The projectile scene to instantiate
+
+@export var unlocked: bool = false

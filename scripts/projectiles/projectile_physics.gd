@@ -31,6 +31,7 @@ func _ready() -> void:
 	if !spellData:
 		return
 
+	add_to_group("Projectiles")
 	rBody.modulate = rBody.modulate.blend(spellData.color * GlobalProjectileModifiers.modifier_resource.colorMod)
 	start = global_position + spellData.spawnOffset
 	adjustedSpeed = (spellData.baseShootSpeed + GlobalProjectileModifiers.modifier_resource.speedMod) * adjustedSpeedFactor
@@ -76,17 +77,17 @@ func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	arc_shot(endPoint, midPoint)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	
 	# Error catching
 	if hasCollided:
 		return
-		
+	
 	# If target has been hit, damage, kill animation and set collided to true
 	if body.is_in_group(target):
 		body.take_damage(spellData.damage + GlobalProjectileModifiers.modifier_resource.damageMod)
 		tween.kill()
 		hasCollided = true
-		
+		queue_free()
+
 		# Bounce effect to be added somewhere
 		#var bounce = func() : 
 			#rBody.freeze = false
@@ -100,7 +101,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			#)
 			
 		# Despawn
-		queue_free()
 		
 		
 		

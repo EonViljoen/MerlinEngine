@@ -11,7 +11,7 @@ extends ProjectileModifier
 
 func apply_modifier():
 	projectileModifierResource.damageMod += damageMod
-	projectileModifierResource.colorMod *= colorMod
+	#projectileModifierResource.colorMod *= colorMod
 	projectileModifierResource.temperatureMod += temperatureMod
 	
 func unapply_modifier():

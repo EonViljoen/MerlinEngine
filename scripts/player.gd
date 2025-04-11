@@ -10,8 +10,8 @@ extends RigidBody2D
 @export var projectileScene: PackedScene
 @export var decimalRoundingStep: float
 
-@export var spellSlots: Array = []  # List of available spell data (BasicBoltSpell, etc.)
 var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
+@onready var spellManager = $Managers/SpellManager
 
 @onready var shield = $Shield
 
@@ -26,11 +26,13 @@ func _ready():
 	characterStats = characterStatManager.characterStatResource
 	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
+	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
+
 	
 	setCurrentHealth()
 	setCurrentMana()
 	setPlayerAnimation()
-	loadSpell()
+	spellManager.loadSpells()
 
 func _process(_delta):
 	if Input.is_action_just_released("ShootProjectile"):
@@ -61,6 +63,8 @@ func shootProjectile():
 		setMessageHUD.emit('No Spell Selected')
 		return
 		
+	print(castedSpell.spellName)
+	
 	if characterStats.currentManaAmount >= castedSpell.cost:
 		
 		characterStats.currentManaAmount -= castedSpell.cost
@@ -99,23 +103,16 @@ func setShield():
 	shield.global_position = global_position + mouseDirection * (characterStats.shieldDistance*10)
 	shield.rotation = angle
 	
-func loadSpell() -> void:
-	var basicBolt = preload("res://resources/spells/basic_bolt.tres")
-	spellSlots.append(basicBolt)
-	castedSpell = spellSlots[0]  # Set the first spell as the active one
-	
 func take_damage(amount):
 	characterStats.currentHealthAmount -= amount
 	playerDamage.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
 
-#unlock_spell(preload("res://Spells/Fireball.tres"))
-#func unlock_spell(new_spell: SpellDataResource):
-	#if not spellSlots.has(new_spell):
-		#spellSlots.append(new_spell)
-		#print("Unlocked new spell:", new_spell.spell_name)
-
 func _on_timer_timeout():
 	regenMana()
-
+	
+func _on_spell_manager_current_spell_in_use(currentSpellInUse: SpellDataResource) -> void:
+	print("current spell: ", currentSpellInUse.spellName)
+	castedSpell = currentSpellInUse
+	
 func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
 	projectileModifierManager.activeModifiersArray = updatedModifiers

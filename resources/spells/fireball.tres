@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SpellDataResource" load_steps=3 format=3 uid="uid://c0kgtklervcnt"]
+
+[ext_resource type="Script" uid="uid://djr20dy57wvt8" path="res://scripts/resources/spell_data_resource.gd" id="1_r2nu1"]
+[ext_resource type="PackedScene" uid="uid://ca5elh2nhbprw" path="res://scenes/entities/projectile.tscn" id="2_mvy0l"]
+
+[resource]
+script = ExtResource("1_r2nu1")
+spellName = "Fireball"
+color = Color(0.996078, 0.243137, 0.0705882, 1)
+spellEdgeCount = 36.0
+spellSize = 5.0
+baseShootSpeed = 4.0
+damage = 35.0
+criticalDamage = 0.0
+knockBack = 0.0
+directionCount = 1.0
+redirectDelay = 0.0
+cost = 25.0
+cooldown = 10.0
+criticalChance = 0.0
+pierceChance = 0.0
+bounce = 0.0
+spawnOffset = Vector2(30, 0)
+spellScene = ExtResource("2_mvy0l")
+metadata/_custom_type_script = "uid://djr20dy57wvt8"

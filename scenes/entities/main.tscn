@@ -59,28 +59,33 @@ script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
+shooting = false
 enemyProjectile = ExtResource("8_gyjab")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0
 
 [node name="Enemy2" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+visible = false
 z_index = 5
 position = Vector2(1147, 320)
 script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
+shooting = false
 enemyProjectile = ExtResource("8_gyjab")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0
 
 [node name="Enemy3" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+visible = false
 z_index = 5
 position = Vector2(1154, 742)
 script = ExtResource("2_ur8c2")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
+shooting = false
 enemyProjectile = ExtResource("8_gyjab")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0

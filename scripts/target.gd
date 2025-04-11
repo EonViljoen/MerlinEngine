@@ -7,6 +7,7 @@ extends RigidBody2D
 
 @export var isDummy: bool
 @export var activeTarget: bool
+@export var shooting: bool = false
 
 @export var enemyProjectile = preload("res://resources/spells/basic_bolt.tres")
 @export var enemyProjectileTimer: float = 10.0
@@ -27,22 +28,21 @@ func take_damage(amount):
 	enemyDamage.emit(amount)
 	
 func shootProjectile():
-	var target = get_tree().get_first_node_in_group("Player")
-	randomize()
-	var enemyShotTimer = get_tree().create_timer(randi_range(enemyProjectileTimer, enemyProjectileTimer + enemyProjectileTimerRandomRange))
-	
-	enemyShotTimer.timeout.connect(
-		func(): 
-			var projectile = enemyProjectile.spellScene.instantiate()
-			projectile.target = "Player"
-			projectile.spellData = enemyProjectile
-			projectile.dest = Vector2(target.global_position.x, target.global_position.y)
-			
-			self.add_child(projectile)
-			shootProjectile()
-			)
-			
-	
+	if shooting:
+		var target = get_tree().get_first_node_in_group("Player")
+		randomize()
+		var enemyShotTimer = get_tree().create_timer(randi_range(enemyProjectileTimer, enemyProjectileTimer + enemyProjectileTimerRandomRange))
+		
+		enemyShotTimer.timeout.connect(
+			func(): 
+				var projectile = enemyProjectile.spellScene.instantiate()
+				projectile.target = "Player"
+				projectile.spellData = enemyProjectile
+				projectile.dest = Vector2(target.global_position.x, target.global_position.y)
+				
+				self.add_child(projectile)
+				shootProjectile()
+				)
 
 func is_target():
 	if activeTarget:

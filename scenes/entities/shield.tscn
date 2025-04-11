@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://e03h7xl1wtdl"]
+[gd_scene load_steps=6 format=3 uid="uid://e03h7xl1wtdl"]
+
+[ext_resource type="Script" uid="uid://cd86gyjt0ec6h" path="res://scripts/shield.gd" id="1_rrqq3"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_y5wla"]
 
@@ -14,6 +16,7 @@ resource_local_to_scene = true
 size = Vector2(6, 40)
 
 [node name="Shield" type="Node2D" groups=["Shields"]]
+script = ExtResource("1_rrqq3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -34,3 +37,5 @@ shape = SubResource("RectangleShape2D_rrqq3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_y5wla")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

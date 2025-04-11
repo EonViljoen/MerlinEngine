@@ -29,6 +29,8 @@ grow_vertical = 2
 
 [node name="ButtonContainer" type="BoxContainer" parent="SideSpellPanel"]
 layout_mode = 1
+offset_right = 200.0
+offset_bottom = 200.0
 script = ExtResource("2_d4g6m")
 
 [node name="OpenCloseButton" type="Button" parent="SideSpellPanel"]

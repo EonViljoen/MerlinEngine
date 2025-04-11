@@ -19,11 +19,14 @@ config/icon="res://icon.svg"
 
 SignalBus="*res://scripts/global/signal_bus.gd"
 GlobalProjectileModifiers="*res://scripts/global/globalProjectileModifiers.gd"
+SpellManager="*res://scripts/managers/spell_manager.gd"
+GlobalProjectileModifierManager="*res://scripts/managers/projectile_modifier_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/initial_position_type=2
 window/stretch/mode="canvas_items"
 window/dpi/allow_hidpi=false
 
