@@ -77,4 +77,6 @@ func _on_respond_character_stat(characterStatResponse: CharacterStatResource):
 func _on_response_projectile_modifiers(activeProjectileModifiersResponse: Array[ProjectileModifier]):
 	if !activeProjectileModifiersResponse.is_empty():
 		activeProjectileMods = activeProjectileModifiersResponse
-	
+
+func _on_player_set_health_hud(currentHealthAmount, maxHealthAmount) -> void:
+	$HealthLabel.text = str(currentHealthAmount) + ' / ' + str(maxHealthAmount)

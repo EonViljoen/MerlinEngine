@@ -11,7 +11,7 @@ class_name SpellDataResource
 @export var criticalDamage: float = 0.0
 @export var knockBack: float = 0.0
 
-@export var redirectCount: float = 0.0
+@export var directionCount: float = 1.0
 @export var redirectDelay: float = 0.0
 
 

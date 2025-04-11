@@ -40,12 +40,32 @@ theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16
 text = "Click To Shoot"
 
+[node name="HealthLabel" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.066
+anchor_right = 0.01
+anchor_bottom = 0.066
+offset_left = 0.799999
+offset_top = -11.28
+offset_right = 40.8
+offset_bottom = 11.72
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 16
+
 [node name="ManaLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 20.0
-offset_top = 50.0
-offset_right = 60.0
-offset_bottom = 73.0
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.103
+anchor_right = 0.01
+anchor_bottom = 0.103
+offset_left = 0.799999
+offset_top = -11.24
+offset_right = 40.8
+offset_bottom = 11.76
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16

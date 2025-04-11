@@ -8,12 +8,19 @@ script/source = "extends SpellDataResource
 
 [node name="BasicBoltSpell" type="Node"]
 script = SubResource("GDScript_88sji")
-spellScene = null
-spellName = null
+spellName = "Basic Bolt"
+color = Color(1, 0.457023, 0.989466, 1)
+spellEdgeCount = null
+spellSize = null
 baseShootSpeed = 5.0
 damage = 10.0
-color = Color(1, 0.457023, 0.989466, 1)
+criticalDamage = null
+knockBack = null
+directionCount = null
+redirectDelay = null
 cost = 5.0
 cooldown = 2.0
+criticalChance = null
+pierceChance = null
+bounce = null
 spawnOffset = Vector2(30, 0)
-spellScene = null

@@ -17,14 +17,17 @@ var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
 
 var characterStats: CharacterStatResource
 
+signal setHealthHUD
 signal setManaHUD
 signal setMessageHUD
+signal playerDamage
 
 func _ready():
 	characterStats = characterStatManager.characterStatResource
 	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	
+	setCurrentHealth()
 	setCurrentMana()
 	setPlayerAnimation()
 	loadSpell()
@@ -37,6 +40,9 @@ func _process(_delta):
 		
 	setShield()
 		
+func setCurrentHealth():
+	setHealthHUD.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
+	
 func setCurrentMana():
 	setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
@@ -73,6 +79,7 @@ func shootProjectile():
 		if activeTarget == null:
 			return
 		else:
+			projectile.target = "Targets"
 			projectile.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
 		
 		
@@ -96,6 +103,10 @@ func loadSpell() -> void:
 	var basicBolt = preload("res://resources/spells/basic_bolt.tres")
 	spellSlots.append(basicBolt)
 	castedSpell = spellSlots[0]  # Set the first spell as the active one
+	
+func take_damage(amount):
+	characterStats.currentHealthAmount -= amount
+	playerDamage.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
 
 #unlock_spell(preload("res://Spells/Fireball.tres"))
 #func unlock_spell(new_spell: SpellDataResource):
