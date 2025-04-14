@@ -5,4 +5,6 @@
 
 [node name="SpeedUp" type="Node"]
 script = ExtResource("1_bxeqo")
+modDisplayName = "Speed Up"
+modName = "SpeedUp"
 characterStateResource = ExtResource("2_e6kqk")

@@ -54,6 +54,7 @@ offset_bottom = 11.72
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16
+text = "0"
 
 [node name="ManaLabel" type="Label" parent="."]
 texture_filter = 1
@@ -69,6 +70,7 @@ offset_bottom = 11.76
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16
+text = "0"
 
 [node name="DebugLabel" type="Label" parent="."]
 texture_filter = 1
@@ -78,19 +80,21 @@ anchor_top = 0.183
 anchor_right = 0.503
 anchor_bottom = 0.183
 offset_left = -153.76
-offset_top = -129.64
+offset_top = -127.64
 offset_right = 153.24
-offset_bottom = 130.36
+offset_bottom = 132.36
 grow_horizontal = 2
 grow_vertical = 2
+text = "..."
 autowrap_mode = 2
 
 [node name="ActiveModDebugLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = 1141.0
-offset_top = 93.0
-offset_right = 1239.0
-offset_bottom = 341.0
+offset_left = 1138.0
+offset_top = 70.0
+offset_right = 1236.0
+offset_bottom = 318.0
+text = "..."
 
 [node name="MessageTimer" type="Timer" parent="."]
 one_shot = true
@@ -98,10 +102,10 @@ autostart = true
 
 [node name="SpellManagerPanel" parent="." instance=ExtResource("3_h0g4p")]
 texture_filter = 1
-anchors_preset = -1
-anchor_top = 0.37
-anchor_bottom = 0.37
-offset_top = 0.399994
-offset_bottom = 0.399994
+anchor_top = 0.231
+anchor_bottom = 0.231
+offset_top = 0.519989
+offset_bottom = 0.519989
+slideSpeed = 10.0
 
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

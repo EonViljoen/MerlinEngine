@@ -10,7 +10,7 @@ extends RigidBody2D
 @export var shooting: bool = false
 
 @export var enemyProjectile = preload("res://resources/spells/basic_bolt.tres")
-@export var enemyProjectileTimer: float = 10.0
+@export var enemyProjectileTimer: float = 1.0
 @export var enemyProjectileTimerRandomRange: float = 10.0
 
 signal enemyDamage

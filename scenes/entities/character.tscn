@@ -22,6 +22,7 @@ resource_local_to_scene = true
 size = Vector2(48, 48)
 
 [node name="Character" type="RigidBody2D" node_paths=PackedStringArray("projectileModifierManager", "characterStatManager")]
+collision_mask = 5
 script = ExtResource("1_om70c")
 spriteFrames = SubResource("SpriteFrames_khvuq")
 projectileModifierManager = NodePath("Managers/ProjectileModifierManager")
@@ -38,6 +39,10 @@ show_behind_parent = true
 shape = SubResource("RectangleShape2D_p54rp")
 
 [node name="Shield" parent="." instance=ExtResource("3_khvuq")]
+visible = false
+manaConsumption = 1.0
+
+[node name="ShieldManaConsumption" type="Timer" parent="Shield"]
 
 [node name="RegenTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -51,5 +56,6 @@ autostart = true
 
 [node name="CharacterStatManager" parent="Managers" instance=ExtResource("4_5x4g4")]
 
+[connection signal="timeout" from="Shield/ShieldManaConsumption" to="." method="_on_shield_mana_consumption_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_timer_timeout"]
 [connection signal="currentSpellInUse" from="Managers/SpellManager" to="." method="_on_spell_manager_current_spell_in_use"]

@@ -8,11 +8,19 @@ extends Node
 }
 @onready var spellResourceDict: Dictionary[String, String] ={
 	"Basic Bolt": "res://resources/spells/basic_bolt.tres",
-	"Fireball": "res://resources/spells/fireball.tres"
+	"Fireball": "res://resources/spells/fireball.tres",
+	"Lightning Bolt": "res://resources/spells/lightning_bolt.tres",
+	"Magic Sword": "res://resources/spells/magic_sword.tres",
 }
 @onready var spellUnlockConditionsDict: Dictionary = {
 	"Fireball": [
 		{"HeatUp": 10}
+		],
+	"Lightning Bolt": [
+		{"SpeedUp": 10}
+		],
+	"Magic Sword": [
+		{"Sharpen": 10}
 		],
 }
 var currentSpell: SpellDataResource
@@ -30,25 +38,27 @@ func check_unlock_conditions(modName: String) -> void:
 		var condition_met = true
 		
 		for condition in spellUnlockConditionsDict[spell]:
-			var requiredModCount = condition[modName]
-			var currentModCount = modifierStackCount[modName]
-			
-			if currentModCount < requiredModCount:
-				condition_met = false
-				continue
-		
-		
-		if condition_met and !spellSlots.filter(func(unlockedSpell): 
-			if spell == unlockedSpell.spellName:
-				return true
-			):
-			unlock_spell(spell)
+			if condition.has(modName):
+
+				var requiredModCount = condition[modName]
+				var currentModCount = modifierStackCount[modName]
+				
+				if currentModCount < requiredModCount:
+					condition_met = false
+					continue
+
+				if condition_met and !spellSlots.filter(func(unlockedSpell): 
+					if spell == unlockedSpell.spellName:
+						return true
+					):
+					unlock_spell(spell)
 	
 func unlock_spell(spellName: String):
 	var spellPath = spellResourceDict[spellName]
 	var newUnlockedSpell = load(spellPath)
 	spellSlots.append(newUnlockedSpell)
 	currentSpell = spellSlots.back()
+	SignalBus.displayHUDMessage.emit(str("New spell unlocked: ", spellName))
 	SignalBus.currentSpellInUse.emit(currentSpell)
 
 func add_modifier(modName: String) -> void:

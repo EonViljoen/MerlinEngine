@@ -5,4 +5,5 @@
 
 [node name="Sharpen" type="Node"]
 script = ExtResource("1_85d0a")
+projectileEdgesMod = -3.0
 projectileModifierResource = ExtResource("2_0v52t")
