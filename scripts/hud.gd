@@ -1,8 +1,9 @@
 extends CanvasLayer
 
-@onready var debugLabel: Label = $DebugLabel
-@onready var activeModDebugLabel: Label = $ActiveModDebugLabel
+@onready var debugLabel: Label = $Labels/DebugLabel
 @onready var displayDebugLabelControl: bool = false
+
+@onready var activeModBoxContainer: HFlowContainer = $ActiveModifiers/Panel/VBoxContainer 
 
 var characterStats: CharacterStatResource
 var activeProjectileMods: Array[ProjectileModifier]
@@ -11,8 +12,10 @@ func _ready() -> void:
 	SignalBus.displayHUDMessage.connect(_on_player_set_message_hud)
 	SignalBus.respondCharacterStat.connect(_on_respond_character_stat)
 	SignalBus.respondProjectileModifiers.connect(_on_response_projectile_modifiers)
+		
+func _process(_delta: float) -> void:
+	activeProjectileModifierIndicator()
 	
-func _process(delta: float) -> void:
 	if Input.is_action_just_released("EnableDebug"):
 		displayDebugLabelControl = !displayDebugLabelControl
 		
@@ -22,15 +25,15 @@ func _process(delta: float) -> void:
 		hideDisplayLabel()
 		
 
-func show_message(message):
-	$MessageLabel.text = message
-	$MessageLabel.show()
+func show_message(message) -> void:
+	$Labels/MessageLabel.text = message
+	$Labels/MessageLabel.show()
 	$MessageTimer.start()
 	
-func displayDebugLabel():
+func displayDebugLabel() -> void:
 	SignalBus.requestCharacterStat.emit()
 	
-	$DebugLabel.text = """
+	$Labels/DebugLabel.text = """
 	Character Stats:
 		Current Mana Amount: {currentMana}
 		Max Mana Amount: {maxMana}
@@ -47,26 +50,43 @@ func displayDebugLabel():
 		"spawnRange": characterStats.projectileSpawnRange
 	})
 	
-	SignalBus.requestProjectileModifiers.emit() # Bad way to do it
-	activeModDebugLabel.text = "Active Mods: \n"
-	for mods in activeProjectileMods:
-		activeModDebugLabel.text += mods.modDisplayName + "\n"
+	$Labels/DebugLabel.show()
 	
-	$DebugLabel.show()
-	activeModDebugLabel.show()
+func hideDisplayLabel() -> void:
+	$Labels/DebugLabel.hide()
 	
-func hideDisplayLabel():
-	$DebugLabel.hide()
-	activeModDebugLabel.hide()
+func activeProjectileModifierIndicator() -> void: #entire method needs rework
+	SignalBus.requestProjectileModifiers.emit() 
 	
-func _on_message_timer_timeout():
-	$MessageLabel.hide()
+	if !activeModBoxContainer.get_children().is_empty():
+		for child in activeModBoxContainer.get_children():
+			child.queue_free()
+	
+	if !activeProjectileMods.is_empty():
+		var displayedModNames := []
+		
+		for mod in activeProjectileMods:
+			if mod.modName in displayedModNames:
+				continue
+			
+			var modCount = activeProjectileMods.filter(func(m): return m.modName == mod.modName).size()
+			var modText = "%s (%d)" % [mod.modDisplayName, modCount]
+			
+			var modTextBlock = Label.new()
+			modTextBlock.text = modText
+			activeModBoxContainer.add_child(modTextBlock)
+			
+			displayedModNames.append(mod.modName)
+	
+	
+func _on_message_timer_timeout() -> void:
+	$Labels/MessageLabel.hide()
 
-func _on_enemy_enemy_damage(amount):
-	$DamageLabel.text = str(amount)
+func _on_enemy_enemy_damage(amount) -> void:
+	$Labels/DamageLabel.text = str(amount)
 
-func _on_player_set_mana_hud(currentManaAmount, maxManaAmount):
-	$ManaLabel.text = str(currentManaAmount) + ' / ' + str(maxManaAmount)
+func _on_player_set_mana_hud(currentManaAmount, maxManaAmount) -> void:
+	$Labels/ManaLabel.text = str(currentManaAmount) + ' / ' + str(maxManaAmount)
 
 func _on_player_set_message_hud(message) -> void:
 	show_message(message)
@@ -79,4 +99,4 @@ func _on_response_projectile_modifiers(activeProjectileModifiersResponse: Array[
 		activeProjectileMods = activeProjectileModifiersResponse
 
 func _on_player_set_health_hud(currentHealthAmount, maxHealthAmount) -> void:
-	$HealthLabel.text = str(currentHealthAmount) + ' / ' + str(maxHealthAmount)
+	$Labels/HealthLabel.text = str(currentHealthAmount) + ' / ' + str(maxHealthAmount)

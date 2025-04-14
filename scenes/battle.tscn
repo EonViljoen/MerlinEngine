@@ -1,19 +1,19 @@
 [gd_scene load_steps=11 format=3 uid="uid://bfrhvekglh4na"]
 
-[ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://scenes/entities/character.tscn" id="1_145mt"]
-[ext_resource type="Texture2D" uid="uid://bh8a5yjoly66b" path="res://assets/art/player/Player_cape.png" id="2_umn7a"]
-[ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="2_ur8c2"]
-[ext_resource type="Texture2D" uid="uid://cvx5w4ddvmdyb" path="res://assets/art/player/Player_no_cape.png" id="3_b3hq8"]
-[ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://scenes/entities/UI/hud.tscn" id="3_h2yge"]
-[ext_resource type="Resource" uid="uid://c2mwj7qag40pp" path="res://resources/spells/basic_bolt.tres" id="8_gyjab"]
-[ext_resource type="Texture2D" uid="uid://ssftrj8hhw6f" path="res://assets/art/target/dummy/dummy.png" id="8_umn7a"]
-[ext_resource type="PackedScene" uid="uid://b7eaywkmkorfo" path="res://scenes/entities/Level.tscn" id="10_b3hq8"]
+[ext_resource type="PackedScene" uid="uid://b7eaywkmkorfo" path="res://scenes/entities/Level.tscn" id="1_ijryt"]
+[ext_resource type="PackedScene" uid="uid://dtjaix5asacrc" path="res://scenes/entities/character.tscn" id="2_oh54f"]
+[ext_resource type="Texture2D" uid="uid://bh8a5yjoly66b" path="res://assets/art/player/Player_cape.png" id="3_m4gqw"]
+[ext_resource type="Texture2D" uid="uid://cvx5w4ddvmdyb" path="res://assets/art/player/Player_no_cape.png" id="4_epfx5"]
+[ext_resource type="Script" uid="uid://brvsj3m80fgjr" path="res://scripts/target.gd" id="5_snrad"]
+[ext_resource type="Texture2D" uid="uid://ssftrj8hhw6f" path="res://assets/art/target/dummy/dummy.png" id="6_5oydc"]
+[ext_resource type="Resource" uid="uid://c2mwj7qag40pp" path="res://resources/spells/basic_bolt.tres" id="7_0frej"]
+[ext_resource type="PackedScene" uid="uid://djwoc85mb6mfu" path="res://scenes/entities/UI/hud.tscn" id="8_ue2d1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eb6dc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_umn7a")
+"texture": ExtResource("3_m4gqw")
 }],
 "loop": true,
 "name": &"idle_cape",
@@ -21,7 +21,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_b3hq8")
+"texture": ExtResource("4_epfx5")
 }],
 "loop": true,
 "name": &"idle_no_cape",
@@ -32,7 +32,7 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_umn7a")
+"texture": ExtResource("6_5oydc")
 }],
 "loop": true,
 "name": &"idle",
@@ -41,54 +41,54 @@ animations = [{
 
 [node name="Battle" type="Node2D"]
 
-[node name="HUD" parent="." instance=ExtResource("3_h2yge")]
+[node name="Level" parent="." instance=ExtResource("1_ijryt")]
 
-[node name="Level" parent="." instance=ExtResource("10_b3hq8")]
-
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_145mt")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_oh54f")]
 z_index = 5
 position = Vector2(310, 601)
 spriteFrames = SubResource("SpriteFrames_eb6dc")
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Enemy" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+[node name="Enemy" parent="Enemies" groups=["Targets"] instance=ExtResource("2_oh54f")]
 z_index = 5
 position = Vector2(1101, 602)
-script = ExtResource("2_ur8c2")
+script = ExtResource("5_snrad")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
 shooting = true
-enemyProjectile = ExtResource("8_gyjab")
+enemyProjectile = ExtResource("7_0frej")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0
 
-[node name="Enemy2" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+[node name="Enemy2" parent="Enemies" groups=["Targets"] instance=ExtResource("2_oh54f")]
 visible = false
 z_index = 5
 position = Vector2(1147, 320)
-script = ExtResource("2_ur8c2")
+script = ExtResource("5_snrad")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
 shooting = false
-enemyProjectile = ExtResource("8_gyjab")
+enemyProjectile = ExtResource("7_0frej")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0
 
-[node name="Enemy3" parent="Enemies" groups=["Targets"] instance=ExtResource("1_145mt")]
+[node name="Enemy3" parent="Enemies" groups=["Targets"] instance=ExtResource("2_oh54f")]
 visible = false
 z_index = 5
 position = Vector2(1154, 742)
-script = ExtResource("2_ur8c2")
+script = ExtResource("5_snrad")
 spriteFrames = SubResource("SpriteFrames_b3hq8")
 isDummy = true
 activeTarget = true
 shooting = false
-enemyProjectile = ExtResource("8_gyjab")
+enemyProjectile = ExtResource("7_0frej")
 enemyProjectileTimer = 1.0
 enemyProjectileTimerRandomRange = 10.0
+
+[node name="HUD" parent="." instance=ExtResource("8_ue2d1")]
 
 [connection signal="playerDamage" from="Player" to="HUD" method="_on_player_set_health_hud"]
 [connection signal="setHealthHUD" from="Player" to="HUD" method="_on_player_set_health_hud"]

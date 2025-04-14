@@ -45,12 +45,10 @@ func _process(_delta) -> void:
 	
 	if Input.is_action_pressed("UseShield"):
 		setShield()
-		if !shieldActive:
-			print('active')
+		if !shieldActive and characterStats.currentManaAmount > shield.manaConsumption:
 			activateShield()
 	else:
 		if shieldActive:
-			print('inactive')
 			deactivateShield()
 	
 
@@ -75,9 +73,7 @@ func shootProjectile() -> void:
 	if castedSpell == null:
 		setMessageHUD.emit('No Spell Selected')
 		return
-		
-	print(castedSpell.spellName)
-	
+			
 	if characterStats.currentManaAmount >= castedSpell.cost:
 		
 		characterStats.currentManaAmount -= castedSpell.cost
@@ -110,11 +106,15 @@ func setPlayerAnimation() -> void: # Temp solution
 	
 func activateShield() -> void:
 	shieldManaTimer.start()
+	
 	shieldActive = true
 	shield.visible = true
 	shield.get_node("StaticBody2D/CollisionShape2D").disabled = false
 	shield.get_node("Area2D/CollisionShape2D").disabled = false
 	shield.get_node("Area2D").monitoring = true
+	
+	characterStats.currentManaAmount -= shield.manaConsumption
+	setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	
 func deactivateShield() -> void:
 	shieldManaTimer.stop()
@@ -140,7 +140,6 @@ func _on_timer_timeout() -> void:
 	regenMana()
 	
 func _on_spell_manager_current_spell_in_use(currentSpellInUse: SpellDataResource) -> void:
-	print("current spell: ", currentSpellInUse.spellName)
 	castedSpell = currentSpellInUse
 	
 func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
@@ -148,8 +147,9 @@ func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: 
 
 
 func _on_shield_mana_consumption_timeout() -> void:
-	if characterStats.currentHealthAmount > 0:
+	if characterStats.currentManaAmount > shield.manaConsumption:
 		characterStats.currentManaAmount -= shield.manaConsumption
 		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
 	else:
+		deactivateShield()
 		shieldActive = false

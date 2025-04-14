@@ -21,7 +21,7 @@ class_name CharacterStatResource
 @export var baseManaAmount: float = 100.0
 @export var currentManaAmount: float = 100.0
 @export var maxManaAmount: float = 100.0
-@export var manaRegenRate: float = 0.25
+@export var manaRegenRate: float = 0.05
 @export var manaRegenAmount: float = 10.0
 
 @export var projectileShotSpeed: float = 2.5
