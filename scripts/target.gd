@@ -31,7 +31,7 @@ func shootProjectile():
 	if shooting:
 		var target = get_tree().get_first_node_in_group("Player")
 		randomize()
-		var enemyShotTimer = get_tree().create_timer(randi_range(enemyProjectileTimer, enemyProjectileTimer + enemyProjectileTimerRandomRange))
+		var enemyShotTimer = get_tree().create_timer(randf_range(enemyProjectileTimer, enemyProjectileTimer + enemyProjectileTimerRandomRange))
 		
 		enemyShotTimer.timeout.connect(
 			func(): 

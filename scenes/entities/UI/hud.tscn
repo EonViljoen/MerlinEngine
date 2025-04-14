@@ -94,14 +94,6 @@ grow_vertical = 2
 text = "..."
 autowrap_mode = 2
 
-[node name="ActiveModDebugLabel" type="Label" parent="Labels"]
-texture_filter = 1
-offset_left = 1138.0
-offset_top = 70.0
-offset_right = 1236.0
-offset_bottom = 318.0
-text = "..."
-
 [node name="ActiveModifiers" type="Node" parent="."]
 
 [node name="Panel" type="Panel" parent="ActiveModifiers"]

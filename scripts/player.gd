@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+var battleSceneReady: bool = false
+
 @export var spriteFrames : SpriteFrames
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 
@@ -7,7 +9,7 @@ extends RigidBody2D
 @export var projectileModifierManager: ProjectileModifierManager
 @export var characterStatManager: CharacterStatManager
 
-@export var projectileScene: PackedScene
+#@export var projectileScene: PackedScene
 @export var decimalRoundingStep: float
 
 var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
@@ -19,29 +21,32 @@ var shieldActive := false
 
 var characterStats: CharacterStatResource
 
-
 signal setHealthHUD
 signal setManaHUD
 signal setMessageHUD
 signal playerDamage
 
 func _ready() -> void:
+	await  get_tree().process_frame
+	get_viewport().gui_release_focus()
+	battleSceneReady = true
+	
 	characterStats = characterStatManager.characterStatResource
 	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
 
-	
+	 
 	setCurrentHealth()
 	setCurrentMana()
 	setPlayerAnimation()
 	spellManager.loadSpells()
 
 func _process(_delta) -> void:
-	if Input.is_action_just_released("ShootProjectile"):
-		if get_viewport().gui_get_focus_owner():
-			return
+	if battleSceneReady and Input.is_action_just_released("ShootProjectile"):
 		shootProjectile()
+		
+	
 	
 	if Input.is_action_pressed("UseShield"):
 		setShield()
@@ -135,6 +140,16 @@ func setShield() -> void:
 func take_damage(amount) -> void:
 	characterStats.currentHealthAmount -= amount
 	playerDamage.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
+	
+	if characterStats.currentHealthAmount < 0:
+		setMessageHUD.emit("You Died, Returning to Home Screen")
+		die()
+
+func die() -> void:
+	set_process_input(false)
+	set_physics_process(false)
+	await get_tree().create_timer(3.0).timeout
+	MainSceneManager.returnToStart()
 
 func _on_timer_timeout() -> void:
 	regenMana()

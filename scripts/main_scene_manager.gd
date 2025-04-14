@@ -15,6 +15,7 @@ func returnToStart() -> void:
 	loadStartScreen()
 	
 func changeScene(scene: String) -> void:
+	print('loaded')
 	if currentScene:
 		currentScene.queue_free()
 		
