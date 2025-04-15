@@ -9,10 +9,9 @@ var battleSceneReady: bool = false
 @export var projectileModifierManager: ProjectileModifierManager
 @export var characterStatManager: CharacterStatManager
 
-#@export var projectileScene: PackedScene
 @export var decimalRoundingStep: float
 
-var castedSpell: SpellDataResource  # The selected spell (SpellDataResource)
+var castedSpell: SpellDataResource
 @onready var spellManager = $Managers/SpellManager
 
 @onready var shield = $Shield
@@ -31,16 +30,9 @@ func _ready() -> void:
 	get_viewport().gui_release_focus()
 	battleSceneReady = true
 	
-	characterStats = characterStatManager.characterStatResource
-	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
 
-	 
-	setCurrentHealth()
-	setCurrentMana()
-	setPlayerAnimation()
-	spellManager.loadSpells()
 
 func _process(_delta) -> void:
 	if battleSceneReady and Input.is_action_just_released("ShootProjectile"):
@@ -55,15 +47,24 @@ func _process(_delta) -> void:
 	else:
 		if shieldActive:
 			deactivateShield()
-	
 
-		
+func setPlayer() -> void:
+	characterStats = characterStatManager.characterStatResource
+
+	characterStats.currentHealthAmount = characterStats.maxHealthAmount
+	characterStats.currentManaAmount = characterStats.maxManaAmount
+	
+	setCurrentHealth()
+	setCurrentMana()
+	setPlayerAnimation()
+	spellManager.loadSpells()
+
 func setCurrentHealth() -> void:
 	setHealthHUD.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
-	
+
 func setCurrentMana() -> void:
 	setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
-	
+
 func regenMana() -> void:
 	if characterStats.currentManaAmount != characterStats.maxManaAmount:
 		characterStats.currentManaAmount += snapped(characterStats.maxManaAmount * characterStats.manaRegenRate, decimalRoundingStep)
@@ -72,7 +73,6 @@ func regenMana() -> void:
 			characterStats.currentManaAmount = characterStats.maxManaAmount
 		
 		setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
-
 
 func shootProjectile() -> void:
 	if castedSpell == null:
@@ -108,7 +108,7 @@ func shootProjectile() -> void:
 func setPlayerAnimation() -> void: # Temp solution
 	sprite.sprite_frames = spriteFrames
 	sprite.animation = "idle_no_cape"
-	
+
 func activateShield() -> void:
 	shieldManaTimer.start()
 	
@@ -120,7 +120,7 @@ func activateShield() -> void:
 	
 	characterStats.currentManaAmount -= shield.manaConsumption
 	setManaHUD.emit(characterStats.currentManaAmount, characterStats.maxManaAmount)
-	
+
 func deactivateShield() -> void:
 	shieldManaTimer.stop()
 	shieldActive = false
@@ -153,13 +153,12 @@ func die() -> void:
 
 func _on_timer_timeout() -> void:
 	regenMana()
-	
+
 func _on_spell_manager_current_spell_in_use(currentSpellInUse: SpellDataResource) -> void:
 	castedSpell = currentSpellInUse
-	
+
 func _on_projectile_modifier_manager_active_modifiers_updated(updatedModifiers: Array[ProjectileModifier]) -> void:
 	projectileModifierManager.activeModifiersArray = updatedModifiers
-
 
 func _on_shield_mana_consumption_timeout() -> void:
 	if characterStats.currentManaAmount > shield.manaConsumption:
