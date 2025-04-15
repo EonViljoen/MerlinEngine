@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://djwoc85mb6mfu"]
+[gd_scene load_steps=8 format=3 uid="uid://djwoc85mb6mfu"]
 
 [ext_resource type="FontFile" uid="uid://b3hxrvl15g5kc" path="res://assets/fonts/Xolonium-Regular.ttf" id="1_37p78"]
 [ext_resource type="Script" uid="uid://cnvhkoxkyq0lf" path="res://scripts/hud.gd" id="1_64ctp"]
+[ext_resource type="Texture2D" uid="uid://beiv5e4ihbljn" path="res://assets/art/hud/BarBackground.png" id="2_1jcx3"]
+[ext_resource type="Texture2D" uid="uid://docsngmti4mci" path="res://assets/art/hud/healthBarProgress.png" id="3_g5pvh"]
 [ext_resource type="PackedScene" uid="uid://qm1ea6fixo4x" path="res://scenes/entities/UI/spell_manager_panel.tscn" id="3_h0g4p"]
+[ext_resource type="Texture2D" uid="uid://btlc3ismqp85s" path="res://assets/art/hud/manaBarProgress.png" id="4_3ihxc"]
+
+[sub_resource type="Theme" id="Theme_h0g4p"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_64ctp")
@@ -10,6 +15,70 @@ script = ExtResource("1_64ctp")
 [node name="MessageTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="Bars" type="Node" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="Bars"]
+texture_filter = 1
+anchors_preset = -1
+anchor_top = 0.046
+anchor_bottom = 0.046
+offset_left = 5.0
+offset_top = 0.319996
+offset_right = 155.0
+offset_bottom = 60.32
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_h0g4p")
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_1jcx3")
+texture_progress = ExtResource("3_g5pvh")
+
+[node name="healthBarLabel" type="Label" parent="Bars/HealthBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337
+anchor_top = 0.183
+anchor_right = 0.337
+anchor_bottom = 0.183
+offset_left = -22.048
+offset_top = -0.98
+offset_right = 17.952
+offset_bottom = 22.02
+text = " 0 / 0"
+
+[node name="ManaLabel" type="TextureProgressBar" parent="Bars"]
+texture_filter = 1
+anchors_preset = -1
+anchor_top = 0.157
+anchor_bottom = 0.157
+offset_left = 5.0
+offset_top = -49.56
+offset_right = 155.0
+offset_bottom = 10.44
+grow_vertical = 2
+size_flags_horizontal = 0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_1jcx3")
+texture_progress = ExtResource("4_3ihxc")
+
+[node name="manaBarLabel" type="Label" parent="Bars/ManaLabel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337
+anchor_top = 0.183
+anchor_right = 0.337
+anchor_bottom = 0.183
+offset_left = -22.048
+offset_top = -0.98
+offset_right = 17.952
+offset_bottom = 22.02
+text = " 0 / 0"
 
 [node name="Labels" type="Node" parent="."]
 
@@ -46,38 +115,6 @@ theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 16
 text = "Click To Shoot"
 
-[node name="HealthLabel" type="Label" parent="Labels"]
-texture_filter = 1
-anchors_preset = -1
-anchor_left = 0.01
-anchor_top = 0.066
-anchor_right = 0.01
-anchor_bottom = 0.066
-offset_left = 0.799999
-offset_top = -11.28
-offset_right = 40.8
-offset_bottom = 11.72
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_37p78")
-theme_override_font_sizes/font_size = 16
-text = "0"
-
-[node name="ManaLabel" type="Label" parent="Labels"]
-texture_filter = 1
-anchors_preset = -1
-anchor_left = 0.01
-anchor_top = 0.103
-anchor_right = 0.01
-anchor_bottom = 0.103
-offset_left = 0.799999
-offset_top = -11.24
-offset_right = 40.8
-offset_bottom = 11.76
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_37p78")
-theme_override_font_sizes/font_size = 16
-text = "0"
-
 [node name="DebugLabel" type="Label" parent="Labels"]
 texture_filter = 1
 anchors_preset = -1
@@ -97,9 +134,12 @@ autowrap_mode = 2
 [node name="ActiveModifiers" type="Node" parent="."]
 
 [node name="Panel" type="Panel" parent="ActiveModifiers"]
-offset_top = 190.0
+anchors_preset = -1
+anchor_top = 0.185
+anchor_bottom = 0.185
+offset_top = 0.199997
 offset_right = 140.0
-offset_bottom = 240.0
+offset_bottom = 50.2
 
 [node name="Label" type="Label" parent="ActiveModifiers/Panel"]
 layout_mode = 1

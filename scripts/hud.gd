@@ -3,6 +3,12 @@ extends CanvasLayer
 @onready var debugLabel: Label = $Labels/DebugLabel
 @onready var displayDebugLabelControl: bool = false
 
+@onready var healthBar: TextureProgressBar = $Bars/HealthBar
+@onready var healthBarLabel: Label = $Bars/HealthBar/healthBarLabel
+@onready var manaBar: TextureProgressBar = $Bars/ManaLabel
+@onready var manaBarLabel: Label = $Bars/ManaLabel/manaBarLabel
+
+@onready var activeModPanel: Panel = $ActiveModifiers/Panel
 @onready var activeModBoxContainer: HFlowContainer = $ActiveModifiers/Panel/VBoxContainer 
 
 var characterStats: CharacterStatResource
@@ -12,6 +18,8 @@ func _ready() -> void:
 	SignalBus.displayHUDMessage.connect(_on_player_set_message_hud)
 	SignalBus.respondCharacterStat.connect(_on_respond_character_stat)
 	SignalBus.respondProjectileModifiers.connect(_on_response_projectile_modifiers)
+	
+	activeModPanel.size.y = (activeModBoxContainer.size.y * 1.5)
 		
 func _process(_delta: float) -> void:
 	activeProjectileModifierIndicator()
@@ -59,6 +67,9 @@ func activeProjectileModifierIndicator() -> void: #entire method needs rework
 	SignalBus.requestProjectileModifiers.emit() 
 	
 	if !activeModBoxContainer.get_children().is_empty():
+		
+		activeModPanel.size.y = (activeModBoxContainer.size.y * 1.5)
+		
 		for child in activeModBoxContainer.get_children():
 			child.queue_free()
 	
@@ -74,6 +85,7 @@ func activeProjectileModifierIndicator() -> void: #entire method needs rework
 			
 			var modTextBlock = Label.new()
 			modTextBlock.text = modText
+			activeModPanel.size.y += modTextBlock.size.y
 			activeModBoxContainer.add_child(modTextBlock)
 			
 			displayedModNames.append(mod.modName)
@@ -85,8 +97,13 @@ func _on_message_timer_timeout() -> void:
 func _on_enemy_enemy_damage(amount) -> void:
 	$Labels/DamageLabel.text = str(amount)
 
+func _on_player_set_health_hud(currentHealthAmount, maxHealthAmount) -> void:
+	healthBar.value = (currentHealthAmount * 100) / maxHealthAmount
+	healthBarLabel.text = str(currentHealthAmount) + ' / ' + str(maxHealthAmount)
+
 func _on_player_set_mana_hud(currentManaAmount, maxManaAmount) -> void:
-	$Labels/ManaLabel.text = str(currentManaAmount) + ' / ' + str(maxManaAmount)
+	manaBar.value = (currentManaAmount * 100) / maxManaAmount
+	manaBarLabel.text = str(currentManaAmount) + ' / ' + str(maxManaAmount)
 
 func _on_player_set_message_hud(message) -> void:
 	show_message(message)
@@ -97,6 +114,3 @@ func _on_respond_character_stat(characterStatResponse: CharacterStatResource):
 func _on_response_projectile_modifiers(activeProjectileModifiersResponse: Array[ProjectileModifier]):
 	if !activeProjectileModifiersResponse.is_empty():
 		activeProjectileMods = activeProjectileModifiersResponse
-
-func _on_player_set_health_hud(currentHealthAmount, maxHealthAmount) -> void:
-	$Labels/HealthLabel.text = str(currentHealthAmount) + ' / ' + str(maxHealthAmount)
