@@ -15,9 +15,7 @@ func returnToStart() -> void:
 	loadStartScreen()
 	
 func changeScene(scene: String) -> void:
-	print('loaded')
 	if currentScene:
 		currentScene.queue_free()
 		
-	currentScene = load(scene).instantiate()
-	add_child(currentScene)
+	get_tree().change_scene_to_file.call_deferred(scene)

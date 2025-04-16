@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cq2j3bxi52du5"]
 
 [ext_resource type="Script" uid="uid://rb3sxnp5e7oc" path="res://scripts/managers/character_stat_manager.gd" id="1_sc331"]
-[ext_resource type="Resource" uid="uid://c3gyquhs8rnib" path="res://resources/character_stat_resource.tres" id="2_kl87p"]
+[ext_resource type="Resource" uid="uid://c3gyquhs8rnib" path="res://resources/character_stats/player_stat_resource.tres" id="2_kl87p"]
 
 [node name="CharacterStatManager" type="Node"]
 script = ExtResource("1_sc331")

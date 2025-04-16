@@ -1,18 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtjaix5asacrc"]
+[gd_scene load_steps=10 format=3 uid="uid://dtjaix5asacrc"]
 
-[ext_resource type="Script" uid="uid://cag0itqvkl1df" path="res://scripts/player.gd" id="1_om70c"]
+[ext_resource type="Script" uid="uid://bdcj6sgu16hfw" path="res://scripts/character.gd" id="1_khvuq"]
 [ext_resource type="PackedScene" uid="uid://e03h7xl1wtdl" path="res://scenes/entities/shield.tscn" id="3_khvuq"]
 [ext_resource type="PackedScene" uid="uid://8o1nqe7w3p21" path="res://scenes/managers/projectile_modifier_manager.tscn" id="3_rk0cf"]
 [ext_resource type="PackedScene" uid="uid://cq2j3bxi52du5" path="res://scenes/managers/character_stat_manager.tscn" id="4_5x4g4"]
 [ext_resource type="PackedScene" uid="uid://djab5w4jtlr8o" path="res://scenes/managers/spell_manager.tscn" id="4_lnmi3"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_khvuq"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"idle_no_cape",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5x4g4"]
 
@@ -20,12 +12,13 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(48, 48)
 
-[node name="Character" type="RigidBody2D" node_paths=PackedStringArray("projectileModifierManager", "characterStatManager")]
+[sub_resource type="CanvasTexture" id="CanvasTexture_khvuq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lnmi3"]
+
+[node name="Character" type="RigidBody2D"]
 collision_mask = 5
-script = ExtResource("1_om70c")
-spriteFrames = SubResource("SpriteFrames_khvuq")
-projectileModifierManager = NodePath("Managers/ProjectileModifierManager")
-characterStatManager = NodePath("Managers/CharacterStatManager")
+script = ExtResource("1_khvuq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -53,6 +46,19 @@ autostart = true
 [node name="ProjectileModifierManager" parent="Managers" instance=ExtResource("3_rk0cf")]
 
 [node name="CharacterStatManager" parent="Managers" instance=ExtResource("4_5x4g4")]
+
+[node name="CharacterHealthBar" type="TextureProgressBar" parent="."]
+visible = false
+z_index = 6
+offset_left = -24.0
+offset_top = -26.0
+offset_right = 24.0
+offset_bottom = -24.0
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_khvuq")
+texture_progress = SubResource("CanvasTexture_lnmi3")
+tint_under = Color(0.314316, 0.314316, 0.314316, 1)
+tint_progress = Color(0.878431, 0.223529, 0.298039, 1)
 
 [connection signal="timeout" from="Shield/ShieldManaConsumption" to="." method="_on_shield_mana_consumption_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_timer_timeout"]

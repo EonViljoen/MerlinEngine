@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="CharacterStatResource" load_steps=3 format=3 uid="uid://ca3mxhvven04o"]
+
+[ext_resource type="SpriteFrames" uid="uid://bmdrvajus20sl" path="res://assets/art/enemy/dummy/dummy_frames.tres" id="1_37e7d"]
+[ext_resource type="Script" uid="uid://qaribx22tfwp" path="res://scripts/resources/character_stat_resource.gd" id="1_w0aa1"]
+
+[resource]
+script = ExtResource("1_w0aa1")
+strengthStat = 0.0
+agilityStat = 0.0
+enduranceStat = 0.0
+intelligenceStat = 0.0
+wisdomStat = 0.0
+charismaStat = 0.0
+perceptionStat = 0.0
+accuracyStat = 0.0
+willpowerStat = 0.0
+luckStat = 0.0
+baseHealthAmount = 50.0
+currentHealthAmount = 50.0
+maxHealthAmount = 50.0
+baseManaAmount = 0.0
+currentManaAmount = 0.0
+maxManaAmount = 0.0
+manaRegenRate = 0.0
+manaRegenAmount = 0.0
+projectileShotSpeed = 0.0
+projectileShotDamage = 0.0
+projectileSpawnRange = 0.0
+projectileCooldown = 0.0
+projectileControlRange = 0.0
+criticalChance = 0.0
+criticalmultiplier = 0.0
+shieldDistance = 0.0
+shieldCount = 0.0
+characterSpriteFrames = ExtResource("1_37e7d")
+metadata/_custom_type_script = "uid://qaribx22tfwp"

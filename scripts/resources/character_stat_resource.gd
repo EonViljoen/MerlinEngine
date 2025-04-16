@@ -15,8 +15,6 @@ class_name CharacterStatResource
 @export var baseHealthAmount: float = 100.0
 @export var currentHealthAmount: float = 100.0
 @export var maxHealthAmount: float = 100.0
-@export var manaHealthRate: float = 0.25
-@export var manaHealthAmount: float = 10.0
 
 @export var baseManaAmount: float = 100.0
 @export var currentManaAmount: float = 100.0
@@ -28,9 +26,12 @@ class_name CharacterStatResource
 @export var projectileShotDamage: float = 10.0
 @export var projectileSpawnRange : float = 10.0
 @export var projectileCooldown: float = 5.0
+@export var projectileControlRange: float = 25.0
 
 @export var criticalChance: float = 5.0
 @export var criticalmultiplier: float = 1.5
 
 @export var shieldDistance: float = 5.0
 @export var shieldCount: float = 1.0
+
+@export var characterSpriteFrames: SpriteFrames

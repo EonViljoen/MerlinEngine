@@ -1,0 +1,23 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dqg8s714hu6sf"]
+
+[ext_resource type="Texture2D" uid="uid://bh8a5yjoly66b" path="res://assets/art/player/Player_cape.png" id="1_0qnwk"]
+[ext_resource type="Texture2D" uid="uid://cvx5w4ddvmdyb" path="res://assets/art/player/Player_no_cape.png" id="2_7r6kl"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0qnwk")
+}],
+"loop": true,
+"name": &"idle_cape",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7r6kl")
+}],
+"loop": true,
+"name": &"idle_no_cape",
+"speed": 5.0
+}]

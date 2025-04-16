@@ -1,13 +1,7 @@
-extends RigidBody2D
-
-var battleSceneReady: bool = false
-
-@export var spriteFrames : SpriteFrames
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+extends "res://scripts/character.gd"
 
 @onready var colShape: CollisionShape2D = $CollisionShape2D
 @export var projectileModifierManager: ProjectileModifierManager
-@export var characterStatManager: CharacterStatManager
 
 @export var decimalRoundingStep: float
 
@@ -18,28 +12,23 @@ var castedSpell: SpellDataResource
 @onready var shieldManaTimer = $Shield/ShieldManaConsumption
 var shieldActive := false
 
-var characterStats: CharacterStatResource
-
 signal setHealthHUD
 signal setManaHUD
 signal setMessageHUD
 signal playerDamage
 
-func _ready() -> void:
-	await  get_tree().process_frame
-	get_viewport().gui_release_focus()
-	battleSceneReady = true
-	
+func _ready() -> void:	
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
+	
+	super.setCharacterAnimation("idle_no_cape")
+	setPlayer()
+	spellManager.loadSpells()
 
 
 func _process(_delta) -> void:
-	if battleSceneReady and Input.is_action_just_released("ShootProjectile"):
+	if Input.is_action_just_released("ShootProjectile"):
 		shootProjectile()
-		
-	
-	
 	if Input.is_action_pressed("UseShield"):
 		setShield()
 		if !shieldActive and characterStats.currentManaAmount > shield.manaConsumption:
@@ -49,16 +38,13 @@ func _process(_delta) -> void:
 			deactivateShield()
 
 func setPlayer() -> void:
-	characterStats = characterStatManager.characterStatResource
-
 	characterStats.currentHealthAmount = characterStats.maxHealthAmount
 	characterStats.currentManaAmount = characterStats.maxManaAmount
 	
 	setCurrentHealth()
 	setCurrentMana()
-	setPlayerAnimation()
-	spellManager.loadSpells()
-
+	
+ 
 func setCurrentHealth() -> void:
 	setHealthHUD.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
 
@@ -88,26 +74,18 @@ func shootProjectile() -> void:
 		projectile.spellData = castedSpell
 		projectileModifierManager.apply_modifiers()
 
-		
-		var activeTarget = get_tree().get_nodes_in_group("Targets").filter(
-			func(x):
-				return x.activeTarget == true
-		).get(0)
-		
-		if activeTarget == null:
-			return
-		else:
+		var targets = get_tree().get_nodes_in_group("Targets")
+		if targets.size() > 0:
+			var activeTarget = targets[0]
 			projectile.target = "Targets"
 			projectile.dest = Vector2(activeTarget.global_position.x, activeTarget.global_position.y)
-		
-		
+		else:
+			setMessageHUD.emit("No Target Selected")
+			return
+
 		self.add_child(projectile)
 	else:
 		setMessageHUD.emit('Not Enough Mana')
-
-func setPlayerAnimation() -> void: # Temp solution
-	sprite.sprite_frames = spriteFrames
-	sprite.animation = "idle_no_cape"
 
 func activateShield() -> void:
 	shieldManaTimer.start()
@@ -138,14 +116,15 @@ func setShield() -> void:
 	shield.rotation = angle
 
 func take_damage(amount) -> void:
-	characterStats.currentHealthAmount -= amount
+	super.take_damage(amount)
 	playerDamage.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
 	
 	if characterStats.currentHealthAmount < 0:
 		setMessageHUD.emit("You Died, Returning to Home Screen")
-		die()
+		die(self)
 
-func die() -> void:
+func die(player: RigidBody2D) -> void:
+	super.die(player)
 	set_process_input(false)
 	set_physics_process(false)
 	await get_tree().create_timer(3.0).timeout

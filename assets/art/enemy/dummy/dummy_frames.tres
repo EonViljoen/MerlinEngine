@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bmdrvajus20sl"]
+
+[ext_resource type="Texture2D" uid="uid://bnc3gu0cyqjqn" path="res://assets/art/enemy/dummy/idle.png" id="1_5vapo"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5vapo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

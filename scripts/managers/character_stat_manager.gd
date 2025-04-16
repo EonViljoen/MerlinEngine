@@ -7,7 +7,7 @@ func _ready() -> void:
 	SignalBus.statUpdate.connect(_on_stat_update)
 	SignalBus.requestCharacterStat.connect(_on_character_request)
 	
-func _on_stat_update(statResource: CharacterStatResource, statName: String, newStatValue: float) -> void:
+func _on_stat_update(statName: String, newStatValue: float) -> void:
 	if(characterStatResource.get(statName)):
 		characterStatResource.set(statName, newStatValue)
 	

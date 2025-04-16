@@ -16,6 +16,7 @@ var activeProjectileMods: Array[ProjectileModifier]
 
 func _ready() -> void:
 	SignalBus.displayHUDMessage.connect(_on_player_set_message_hud)
+	SignalBus.enemyDamage.connect(_on_enemy_enemy_damage)
 	SignalBus.respondCharacterStat.connect(_on_respond_character_stat)
 	SignalBus.respondProjectileModifiers.connect(_on_response_projectile_modifiers)
 	

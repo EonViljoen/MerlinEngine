@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CharacterStatResource" load_steps=2 format=3 uid="uid://c3gyquhs8rnib"]
+[gd_resource type="Resource" script_class="CharacterStatResource" load_steps=3 format=3 uid="uid://c3gyquhs8rnib"]
 
-[ext_resource type="Script" uid="uid://qaribx22tfwp" path="res://scripts/resources/character_stat_resource.gd" id="1_dqgqh"]
+[ext_resource type="Script" uid="uid://qaribx22tfwp" path="res://scripts/resources/character_stat_resource.gd" id="1_lehcg"]
+[ext_resource type="SpriteFrames" uid="uid://dqg8s714hu6sf" path="res://assets/art/player/player_frames.tres" id="1_x2rej"]
 
 [resource]
-script = ExtResource("1_dqgqh")
+script = ExtResource("1_lehcg")
 strengthStat = 5.0
 agilityStat = 5.0
 enduranceStat = 5.0
@@ -17,8 +18,6 @@ luckStat = 5.0
 baseHealthAmount = 100.0
 currentHealthAmount = 100.0
 maxHealthAmount = 100.0
-manaHealthRate = 0.25
-manaHealthAmount = 10.0
 baseManaAmount = 100.0
 currentManaAmount = 100.0
 maxManaAmount = 100.0
@@ -28,7 +27,9 @@ projectileShotSpeed = 2.5
 projectileShotDamage = 10.0
 projectileSpawnRange = 30.0
 projectileCooldown = 5.0
+projectileControlRange = 25.0
 criticalChance = 5.0
 criticalmultiplier = 1.5
 shieldDistance = 6.0
 shieldCount = 1.0
+characterSpriteFrames = ExtResource("1_x2rej")
