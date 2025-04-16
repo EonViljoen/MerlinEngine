@@ -42,7 +42,6 @@ func spawnEnemy(spawnPoint: Vector2, enemyStat: CharacterStatResource):
 	enemyInstance.characterStats = enemyStat.duplicate()
 	enemyInstance.z_index = 5
 	enemyInstance.add_to_group("Targets")
-	print("Enemy stat resource ID:", enemyInstance.characterStats.get_instance_id())
 
 	await get_tree().current_scene.call_deferred("add_child", enemyInstance)
 	

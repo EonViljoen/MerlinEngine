@@ -9,6 +9,7 @@ extends RigidBody2D
 @onready var projectileEdges: float
 
 func _ready() -> void:
+	$DummyTest.queue_free()
 	projectileEdges = projectileEdgesInput + GlobalProjectileModifiers.modifier_resource.edgeCountMod
 	create_circle(projectileRadius + GlobalProjectileModifiers.modifier_resource.sizeMod)
 

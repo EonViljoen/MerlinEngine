@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca5elh2nhbprw"]
+[gd_scene load_steps=8 format=3 uid="uid://ca5elh2nhbprw"]
 
 [ext_resource type="Script" uid="uid://0udwwnexsch3" path="res://scripts/projectiles/projectile_physics.gd" id="1_8ngof"]
 [ext_resource type="Script" uid="uid://6ftcvlqdwksk" path="res://scripts/projectiles/projectile.gd" id="2_ykqt4"]
 [ext_resource type="Script" uid="uid://ddhpq8nhita2a" path="res://scripts/projectiles/projectile_animation.gd" id="3_48ark"]
+[ext_resource type="Material" uid="uid://cks3mqhenyuga" path="res://resources/materials/fire.tres" id="4_ykqt4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qxf0c"]
 
@@ -36,5 +37,10 @@ projectileScaleFactor = 1.3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
 position = Vector2(0, -2.84217e-14)
 shape = SubResource("CircleShape2D_xuxxp")
+
+[node name="DummyTest" type="Sprite2D" parent="RigidBody2D"]
+material = ExtResource("4_ykqt4")
+position = Vector2(-5.96046e-08, -2.38419e-07)
+scale = Vector2(0.0898437, 0.0898437)
 
 [connection signal="body_entered" from="RigidBody2D/Area2D" to="." method="_on_area_2d_body_entered"]

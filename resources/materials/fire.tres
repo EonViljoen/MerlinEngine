@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cks3mqhenyuga"]
+
+[ext_resource type="Shader" uid="uid://bke0urq13ih0u" path="res://shaders/fire.gdshader" id="1_vyhjq"]
+
+[resource]
+shader = ExtResource("1_vyhjq")
+shader_parameter/fire_color = Color(1, 0, 0.0666667, 1)
+shader_parameter/fire_power_factor = 0.0
+shader_parameter/fire_intensity = 1.975
+shader_parameter/fire_start = 1.0
+shader_parameter/ball_size = 1.015
+shader_parameter/roughness = 1.015
+shader_parameter/detail = 6
+shader_parameter/scale = 4.0
+shader_parameter/lacunarity = 2.0

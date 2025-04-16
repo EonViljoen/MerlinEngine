@@ -21,7 +21,7 @@ func _ready() -> void:
 	SignalBus.updateModifiers.connect(_on_projectile_modifier_manager_active_modifiers_updated)
 	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
 	
-	super.setCharacterAnimation("idle_no_cape")
+	super.setCharacterAnimation("player_idle")
 	setPlayer()
 	spellManager.loadSpells()
 
