@@ -32,7 +32,12 @@ func _ready() -> void:
 		return
 
 	add_to_group("Projectiles")
-	rBody.modulate = rBody.modulate.blend(spellData.color * GlobalProjectileModifiers.modifier_resource.colorMod)
+	
+
+
+		
+	#rBody.shaderMaterial = spellData.material
+	#rBody.modulate = rBody.modulate.blend(spellData.color * GlobalProjectileModifiers.modifier_resource.colorMod)
 	start = global_position + spellData.spawnOffset
 	adjustedSpeed = (spellData.baseShootSpeed + GlobalProjectileModifiers.modifier_resource.speedMod) * adjustedSpeedFactor
 	

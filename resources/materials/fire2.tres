@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://djda0bam8vg3l"]
+
+[ext_resource type="Shader" uid="uid://ds2v6h3yocdhs" path="res://shaders/fire3.gdshader" id="1_315du"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_315du"]
+width = 256
+height = 256
+seamless = true
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_315du")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_315du")
+shader_parameter/bottom_color = Color(0, 0.7, 1, 1)
+shader_parameter/middle_color = Color(1, 0.5, 0, 1)
+shader_parameter/top_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/fire_speed = Vector2(3, 0)
+shader_parameter/fire_aperture = 0.195

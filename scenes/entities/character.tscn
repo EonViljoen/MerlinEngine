@@ -22,7 +22,7 @@ script = ExtResource("1_khvuq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(3, 3)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5x4g4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

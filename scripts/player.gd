@@ -72,6 +72,7 @@ func shootProjectile() -> void:
 		
 		var projectile = castedSpell.spellScene.instantiate()
 		projectile.spellData = castedSpell
+		
 		projectileModifierManager.apply_modifiers()
 
 		var targets = get_tree().get_nodes_in_group("Targets")
