@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://byc2s2ola588i"]
+
+[ext_resource type="Shader" uid="uid://dmip7b8vfmsno" path="res://assets/shaders/fire/fireAura.gdshader" id="1_4auig"]
+[ext_resource type="Texture2D" uid="uid://bp0e3vq3bkfan" path="res://assets/texutres/simplexNoiseTexture.tres" id="2_fw33v"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_4auig")
+shader_parameter/noise_tex = ExtResource("2_fw33v")
+shader_parameter/bottom_color = Color(0, 0.7, 1, 1)
+shader_parameter/middle_color = Color(1, 0.5, 0, 1)
+shader_parameter/top_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/fire_speed = Vector2(-0.25, 2)
+shader_parameter/fire_aperture = 0.4

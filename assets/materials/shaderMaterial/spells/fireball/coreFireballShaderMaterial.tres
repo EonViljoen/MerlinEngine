@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://coynks60lea2b"]
+
+[ext_resource type="Shader" uid="uid://ds2v6h3yocdhs" path="res://assets/shaders/fire/fireCore.gdshader" id="1_il8yo"]
+[ext_resource type="Texture2D" uid="uid://twm5eqgj8c4k" path="res://assets/texutres/perlin_noise_texture.tres" id="2_cwa8g"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_il8yo")
+shader_parameter/noise_tex = ExtResource("2_cwa8g")
+shader_parameter/bottom_color = Color(0, 0.7, 1, 1)
+shader_parameter/middle_color = Color(1, 0.5, 0, 1)
+shader_parameter/top_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/fire_speed = Vector2(1, 0.5)
+shader_parameter/fire_aperture = 0.0

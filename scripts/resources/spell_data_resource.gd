@@ -14,6 +14,7 @@ class_name SpellDataResource
 @export var directionCount: float = 1.0
 @export var redirectDelay: float = 0.0
 
+@export var statusAffliction: Array
 
 @export var cost: float = 0.0
 @export var cooldown: float = 0.0
@@ -23,7 +24,9 @@ class_name SpellDataResource
 
 @export var spawnOffset: Vector2 = Vector2.ZERO
 
-@export var spellScene: PackedScene  # The projectile scene to instantiate
-@export var material: ShaderMaterial
+@export var spellScene: PackedScene
+@export var coreShaderMaterial: ShaderMaterial
+@export var auraShaderMaterial: ShaderMaterial
+@export var trailShaderMaterial: ShaderMaterial
 
 @export var unlocked: bool = false

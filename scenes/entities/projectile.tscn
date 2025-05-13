@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca5elh2nhbprw"]
+[gd_scene load_steps=8 format=3 uid="uid://ca5elh2nhbprw"]
 
 [ext_resource type="Script" uid="uid://0udwwnexsch3" path="res://scripts/projectiles/projectile_physics.gd" id="1_8ngof"]
 [ext_resource type="Script" uid="uid://6ftcvlqdwksk" path="res://scripts/projectiles/projectile.gd" id="2_ykqt4"]
 [ext_resource type="Script" uid="uid://ddhpq8nhita2a" path="res://scripts/projectiles/projectile_animation.gd" id="3_48ark"]
-[ext_resource type="Material" uid="uid://djda0bam8vg3l" path="res://resources/materials/fire2.tres" id="3_tgl8d"]
-[ext_resource type="Texture2D" uid="uid://c28um4cltkam6" path="res://resources/texutres/noise_texture_2d.tres" id="4_h8eag"]
-[ext_resource type="Texture2D" uid="uid://cfghyw044pbx6" path="res://resources/texutres/whiteTexture.png" id="4_ykqt4"]
+[ext_resource type="Texture2D" uid="uid://cfghyw044pbx6" path="res://assets/texutres/whiteTexture.png" id="4_ykqt4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qxf0c"]
 
@@ -24,25 +22,19 @@ collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_qxf0c")
 can_sleep = false
 script = ExtResource("2_ykqt4")
-projectileRadius = 60.0
-projectileEdgesInput = 36.0
-projectileCoreMaterial = ExtResource("3_tgl8d")
-projectileAuraMaterial = ExtResource("3_tgl8d")
-baseNoiseTexture = ExtResource("4_h8eag")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_dgwo2")
 
-[node name="Polygon2D" type="Polygon2D" parent="RigidBody2D"]
-polygon = PackedVector2Array(12, 0, 9.7, 7, 3.7, 11.4, -3.7, 11.4, -10.4098, 7.49581, -12, 0, -10.6612, -6.77093, -3.7, -11.4, 3.7, -11.4, 9.7, -7)
-uv = PackedVector2Array(0.638387, 8.64354, 1.69921, 4.29384, 5.12491, 1.34344, 9.60768, 0.991976, 13.8577, 3.03837, 15.1771, 7.50366, 14.6877, 11.6689, 10.6906, 14.8037, 6.2078, 15.1552, 2.36414, 12.7748)
-script = ExtResource("3_48ark")
-projectileScaleFactor = 1.3
-
-[node name="ShaderSprite" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(-2.84217e-14, -5.96046e-08)
-scale = Vector2(0.078125, 0.078125)
+[node name="AuraShaderSprite" type="Sprite2D" parent="RigidBody2D"]
+rotation = -1.5708
 texture = ExtResource("4_ykqt4")
+
+[node name="CoreShaderSprite" type="Sprite2D" parent="RigidBody2D"]
+rotation = -1.5708
+texture = ExtResource("4_ykqt4")
+script = ExtResource("3_48ark")
+pulseScaleFactor = 0.05
 
 [node name="Area2D" type="Area2D" parent="RigidBody2D"]
 

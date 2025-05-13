@@ -8,7 +8,6 @@ var spellData: SpellDataResource
 @onready var absoluteArcPoints: float = spellData.directionCount
 @onready var projectileGravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
 # Projectile path variables
 var angle: int
 var dest: Vector2
@@ -33,27 +32,29 @@ func _ready() -> void:
 
 	add_to_group("Projectiles")
 	
-
-
-		
-	#rBody.shaderMaterial = spellData.material
-	#rBody.modulate = rBody.modulate.blend(spellData.color * GlobalProjectileModifiers.modifier_resource.colorMod)
 	start = global_position + spellData.spawnOffset
 	adjustedSpeed = (spellData.baseShootSpeed + GlobalProjectileModifiers.modifier_resource.speedMod) * adjustedSpeedFactor
 	
-	
 	# Freeze shot then move it with tween
 	rBody.freeze = true	
+	rBody.global_position = Vector2(500, 300) # for test
+	
+	rBody.projectileRadius = (spellData.spellSize*5)
+	rBody.projectileEdges = spellData.spellEdgeCount
+
+	rBody.setShaders(spellData.coreShaderMaterial, 
+	spellData.auraShaderMaterial, 
+	spellData.trailShaderMaterial)
 
 	# Tween for movement animation
-	tween = get_tree().create_tween()
+	#tween = get_tree().create_tween()
 
 	# Random angle shot
 	randomize()
 	angle = randi_range(-1, 1)
 	
 	# Actual shot
-	arc_shot(dest, start)
+	#arc_shot(dest, start)
 
 func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	var distance: float
@@ -71,6 +72,8 @@ func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	# Midpoint calculation
 	midPoint.y += angle * (drop * (1 - (2 * t - 1) ** 2))
 	distance = currentPoint.distance_to(midPoint)
+	rBody.coreShaderSprite.rotate(currentPoint.angle_to_point(endPoint))
+	rBody.auraShaderSprite.rotate(currentPoint.angle_to_point(endPoint))
 	
 	# Arc tracking
 	arcCount += 1.0;
