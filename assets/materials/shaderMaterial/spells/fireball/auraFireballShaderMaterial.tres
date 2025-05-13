@@ -13,3 +13,4 @@ shader_parameter/top_color = Color(1, 0.03, 0.001, 1)
 shader_parameter/fire_alpha = 1.0
 shader_parameter/fire_speed = Vector2(-0.25, 2)
 shader_parameter/fire_aperture = 0.4
+shader_parameter/feather_fade = 0.1

@@ -23,29 +23,36 @@ func setupProjectile():
 	
 	
 func setShaders(coreShaderMaterialData: ShaderMaterial, auraShaderMaterialData: ShaderMaterial, trailShaderMaterialData: ShaderMaterial):
-	coreShaderMaterial = coreShaderMaterialData
-	auraShaderMaterial = auraShaderMaterialData
-	trailShaderMaterial = trailShaderMaterialData
+	if coreShaderMaterialData == null :
+		$CoreShaderSprite.texture = null;
+	else:
+		coreShaderMaterial = coreShaderMaterialData
+	if auraShaderMaterialData == null :
+		$AuraShaderSprite.texture = null;
+	else:
+		auraShaderMaterial = auraShaderMaterialData
+	if trailShaderMaterialData == null :
+		pass
+	else:
+		trailShaderMaterial = trailShaderMaterialData
 
-	
 func SetupEffects() -> void:
-	
 	if coreShaderMaterial:
 		coreShaderSprite.material = coreShaderMaterial
 		scaleTexture(coreShaderSprite, false)
-		coreShaderSprite.z_index = 4
+		coreShaderSprite.z_index = 3
 
 	if auraShaderMaterial:
 		auraShaderSprite.material = auraShaderMaterial
 		scaleTexture(auraShaderSprite, true)
-		auraShaderSprite.z_index = 3
+		var offset = coreShaderSprite.texture.get_width() / 4;
+		auraShaderSprite.offset = Vector2(0, (offset*-1.75));
+		auraShaderSprite.z_index = 4
 	
 func scaleTexture(sprite: Sprite2D, extend: bool) -> void:
 	var textureSize = sprite.texture.get_width()
 	var scaleFactor = (projectileRadius*2) / textureSize
 	if extend:
-		sprite.scale = Vector2(scaleFactor, scaleFactor + 2)
-		print(sprite.scale)
+		sprite.scale = Vector2((scaleFactor*1.1), (scaleFactor*2.5))
 	else:
 		sprite.scale = Vector2(scaleFactor, scaleFactor)
-		print(sprite.scale)

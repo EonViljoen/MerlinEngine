@@ -28,7 +28,7 @@ var currentSpell: SpellDataResource
 signal currentSpellInUse
 
 func _ready() -> void:
-	spellSlots.append(load(spellResourceDict["Fireball"]))
+	spellSlots.append(load(spellResourceDict["Basic Bolt"]))
 	
 func loadSpells() -> void:
 	currentSpellInUse.emit(spellSlots.front())

@@ -2,12 +2,9 @@ shader_type canvas_item;
 render_mode blend_mix, unshaded;
 
 uniform sampler2D noise_tex : hint_default_white;
-uniform vec4 bottom_color : source_color = vec4(1.0, 0.3, 0.0, 1.0);
-uniform vec4 middle_color : source_color = vec4(1.0, 0.7, 0.0, 1.0);
-uniform vec4 top_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float fire_alpha : hint_range(0.0, 1.0) = 1.0;
-uniform vec2 fire_speed = vec2(0.0, 1.5);
-uniform float fire_aperture : hint_range(0.0, 3.0) = 0.25;
+uniform vec4 magic_color : source_color = vec4(1.0, 0.3, 0.0, 1.0);
+uniform float magic_alpha : hint_range(0.0, 1.0) = 1.0;
+uniform vec2 magic_speed = vec2(0.0, 1.5);
 // controls the softness of the transition between the shape and the border color
 uniform float border_feather : hint_range(0.0, 0.2) = 0.02;
 // fades the outer edge of the whole shape smoothly into transparency
@@ -23,35 +20,22 @@ uniform float border_width : hint_range(0.0, 1.0) = 0.1;
 uniform vec4 border_color : source_color = vec4(0.35, 0.35, 1.0, 1.0);
 uniform bool maintain_aspect_ratio = true;
 
-
-vec4 tri_color_mix(vec4 color1, vec4 color2, vec4 color3, float pos) {
-    pos = clamp(pos, 0.0, 1.0);
-    if (pos < 0.5) {
-        return mix(color1, color2, pos * 2.0);
-    } else {
-        return mix(color2, color3, (pos - 0.5) * 2.0);
-    }
-}
-
 void fragment() {
     vec2 base_uv = UV;
 
-    vec2 shifted_uv1 = base_uv + TIME * fire_speed;
-    vec2 shifted_uv2 = base_uv + TIME * fire_speed * 1.3;
+    vec2 shifted_uv1 = base_uv + TIME * magic_speed;
 
-    float fire_noise1 = texture(noise_tex, fract(shifted_uv1)).r;
-    float fire_noise2 = texture(noise_tex, fract(shifted_uv2)).r;
-    float combined_noise = (fire_noise1 + fire_noise2) * 0.5;
+    float noise1 = texture(noise_tex, fract(shifted_uv1)).r;
+    float combined_noise = noise1;
 
-    float shape = UV.y * (((UV.y + fire_aperture) * combined_noise - fire_aperture) * 75.0);
+    float shape = UV.y * ((UV.y * combined_noise) * 100.0);
     shape += sin(UV.y * 10.0 + TIME * 2.0) * 0.1;
 
-    float gradient_pos = clamp(shape * 0.03, 0.2, 1.0);
-    vec4 fire_color = tri_color_mix(bottom_color, middle_color, top_color, gradient_pos);
-    fire_color.a = clamp(shape, 0.0, 1.0) * fire_alpha;
+    float gradient_pos = clamp(shape * 0.1, 0.2, 1.0);
+    vec4 magic_col = magic_color;
+    magic_col.a = clamp(shape, 0.0, 1.0) * magic_alpha;
 
-    // Mask logic begins
-    vec2 aspect_ratio = vec2(1.0, 1.0);
+	vec2 aspect_ratio = vec2(1.0, 1.0);
     if (maintain_aspect_ratio) {
         aspect_ratio = vec2(
             min(1.0, TEXTURE_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.x),
@@ -89,12 +73,12 @@ void fragment() {
 	} else if (d > border_radius) {
 	    // Inner border feathering (into border color)
 	    vec4 modulated = vec4(border_color.rgb * border_color.a, 1.0);
-		fire_color = mix(fire_color, modulated, border_color.a);
+		magic_col = mix(magic_col, modulated, border_color.a);
 	    COLOR = mix(COLOR, modulated, border_fade * border_color.a);
 	}
 
 	// Outer edge alpha feather
-	COLOR = fire_color;
+	COLOR = magic_col;
 	COLOR.a *= outer_fade;
 	
 }

@@ -37,7 +37,6 @@ func _ready() -> void:
 	
 	# Freeze shot then move it with tween
 	rBody.freeze = true	
-	rBody.global_position = Vector2(500, 300) # for test
 	
 	rBody.projectileRadius = (spellData.spellSize*5)
 	rBody.projectileEdges = spellData.spellEdgeCount
@@ -47,14 +46,14 @@ func _ready() -> void:
 	spellData.trailShaderMaterial)
 
 	# Tween for movement animation
-	#tween = get_tree().create_tween()
+	tween = get_tree().create_tween()
 
 	# Random angle shot
 	randomize()
 	angle = randi_range(-1, 1)
 	
 	# Actual shot
-	#arc_shot(dest, start)
+	arc_shot(dest, start)
 
 func arc_shot(endPoint: Vector2, currentPoint: Vector2):
 	var distance: float
