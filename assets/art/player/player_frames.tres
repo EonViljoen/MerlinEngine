@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://dqg8s714hu6sf"]
+[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://d4h30pc6arj6g"]
 
 [ext_resource type="Texture2D" uid="uid://bso2xgqtkfq6t" path="res://assets/art/player/spritesheet/Player_arm_spritesheet.png" id="1_7r6kl"]
 [ext_resource type="Texture2D" uid="uid://b4j73uvlevn0t" path="res://assets/art/player/spritesheet/Player_spritesheet.png" id="1_dcx7x"]
@@ -69,7 +69,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"arm_idle",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -86,7 +86,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"cape_idle",
-"speed": 5.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -103,5 +103,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"player_idle",
-"speed": 14.0
+"speed": 1.0
 }]

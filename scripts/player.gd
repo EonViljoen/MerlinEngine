@@ -12,6 +12,8 @@ var castedSpell: SpellDataResource
 @onready var shieldManaTimer = $Shield/ShieldManaConsumption
 var shieldActive := false
 
+var armSprite: AnimatedSprite2D
+
 signal setHealthHUD
 signal setManaHUD
 signal setMessageHUD
@@ -22,6 +24,7 @@ func _ready() -> void:
 	SignalBus.currentSpellInUse.connect(_on_spell_manager_current_spell_in_use)
 	
 	super.setCharacterAnimation("player_idle")
+	armSprite = AnimatedSprite2D.new()
 	setPlayer()
 	spellManager.loadSpells()
 
@@ -29,6 +32,7 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	if Input.is_action_just_released("ShootProjectile"):
 		shootProjectile()
+	setArmPosition()
 	if Input.is_action_pressed("UseShield"):
 		setShield()
 		if !shieldActive and characterStats.currentManaAmount > shield.manaConsumption:
@@ -38,13 +42,28 @@ func _process(_delta) -> void:
 			deactivateShield()
 
 func setPlayer() -> void:
+	setPlayerArm()
+	
 	characterStats.currentHealthAmount = characterStats.maxHealthAmount
 	characterStats.currentManaAmount = characterStats.maxManaAmount
 	
 	setCurrentHealth()
 	setCurrentMana()
 	
+func setPlayerArm() -> void:
+	armSprite.sprite_frames = characterStats.characterSpriteFrames
+	armSprite.animation = "arm_idle"
+	armSprite.play()
+	armSprite.position = Vector2(0, 0)
+	armSprite.scale = Vector2(2.0, 2.0)
+	armSprite.z_index = 1
+	add_child(armSprite)
  
+func setArmPosition() -> void:
+	var mouse = get_global_mouse_position()
+	var direction = mouse - global_position
+	armSprite.global_rotation = direction.angle()
+
 func setCurrentHealth() -> void:
 	setHealthHUD.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)
 

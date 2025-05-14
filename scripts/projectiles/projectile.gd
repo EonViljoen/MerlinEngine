@@ -45,7 +45,7 @@ func SetupEffects() -> void:
 	if auraShaderMaterial:
 		auraShaderSprite.material = auraShaderMaterial
 		scaleTexture(auraShaderSprite, true)
-		var offset = coreShaderSprite.texture.get_width() / 4;
+		var offset = float(coreShaderSprite.texture.get_width() / 4.0);
 		auraShaderSprite.offset = Vector2(0, (offset*-1.75));
 		auraShaderSprite.z_index = 4
 	
