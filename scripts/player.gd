@@ -12,7 +12,15 @@ var castedSpell: SpellDataResource
 @onready var shieldManaTimer = $Shield/ShieldManaConsumption
 var shieldActive := false
 
+@export var flipTopLimit: float = -100.0
+@export var flipBottomLimit: float = 100.0
+
 var armSprite: AnimatedSprite2D
+@export var armOffset: float = -3.0
+@export var armTopLimit: float = -30.0
+@export var armBottomLimit: float = 30.0
+@export var flippedArmTopLimit: float = -0.1
+@export var flippedArmBottomLimit: float = 0.2
 
 signal setHealthHUD
 signal setManaHUD
@@ -56,13 +64,28 @@ func setPlayerArm() -> void:
 	armSprite.play()
 	armSprite.position = Vector2(0, 0)
 	armSprite.scale = Vector2(2.0, 2.0)
-	armSprite.z_index = 1
+	armSprite.z_index = 3
 	add_child(armSprite)
  
 func setArmPosition() -> void:
-	var mouse = get_global_mouse_position()
-	var direction = mouse - global_position
-	armSprite.global_rotation = direction.angle()
+	var direction = get_global_mouse_position() - global_position
+	var angle_rad = direction.angle()
+	var angle_deg = rad_to_deg(angle_rad)
+	
+
+	if armTopLimit < angle_deg and angle_deg < armBottomLimit:
+		armSprite.global_position = global_position + direction.normalized() * armOffset
+		armSprite.global_rotation = angle_rad
+		
+		sprite.flip_h = false
+		armSprite.flip_v = false
+	elif flippedArmBottomLimit < angle_deg or angle_deg < flippedArmTopLimit :
+		armSprite.global_position = global_position + direction.normalized() * -(armOffset+5.0)
+		armSprite.global_rotation = angle_rad
+		
+		sprite.flip_h = true
+		armSprite.flip_v = true
+		
 
 func setCurrentHealth() -> void:
 	setHealthHUD.emit(characterStats.currentHealthAmount, characterStats.maxHealthAmount)

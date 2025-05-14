@@ -21,6 +21,13 @@ position = Vector2(310, 600)
 script = ExtResource("4_f4pi3")
 projectileModifierManager = NodePath("../Managers/ProjectileModifierManager")
 decimalRoundingStep = 0.0
+flipTopLimit = -100.0
+flipBottomLimit = 100.0
+armOffset = -3.0
+armTopLimit = -30.0
+armBottomLimit = 30.0
+flippedArmTopLimit = -120.0
+flippedArmBottomLimit = 120.0
 characterStats = ExtResource("5_yahae")
 
 [node name="Managers" type="Node" parent="."]

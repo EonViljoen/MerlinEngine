@@ -8,6 +8,7 @@ class_name Character
 func setCharacterAnimation(animationName: String) -> void:
 	sprite.sprite_frames = characterStats.characterSpriteFrames
 	sprite.animation = animationName
+	sprite.z_index = 4
 	sprite.play()
 
 func take_damage(amount) -> void:
